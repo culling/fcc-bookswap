@@ -9,10 +9,17 @@ var mongoExport = require("./../../config/mongo");
 
 router.get('/users', function(req, res){
     mongoExport.users.findAll(function(users){
-        res.send(JSON.stringify(users, null,"\t" ))
+
+        res.write(JSON.stringify(users, null, "\t" ));
+        res.end();
     }) ;
 });
 
-
+router.post("/users", function(req, res){
+    //var newUser = ({username: "jane",password: "secret", email: "jane@gmail.com"});
+    var newUser = req.body;
+    mongoExport.users.create(newUser);
+    res.end();
+})
 
 module.exports = router;

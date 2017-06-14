@@ -1,6 +1,6 @@
 {
-  "name": "fcc-chart-stocks",
-  "description": "Chart the stock market",
+  "name": "fcc-bookswap",
+  "description": "Manage a book trading group",
   "main": "server.js",
   "authors": [
     "culling <culling66@gmail.com>"
@@ -19,7 +19,6 @@
     "jquery": "^3.2.1",
     "react": "^15.5.4",
     "socket.io": "^2.0.1",
-    "materialize": "^0.98.2",
-    "highcharts": "^5.0.12"
+    "materialize": "^0.98.2"
   }
 }

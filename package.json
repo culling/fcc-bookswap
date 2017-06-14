@@ -6,7 +6,13 @@
   "scripts": {
     "build": "npm install && bower install",
     "test": "mocha --watch --recursive test",
-    "devmode": "nodemon ./server.js"
+    "devmode": "nodemon ./server.js",
+    "c9-install-mongo": "sudo apt-get install -y mongodb-org",
+    "c9-config-mongo": "mkdir data && echo 'mongod --bind_ip=$IP --dbpath=data --nojournal --rest \"$@\"' > mongod && chmod a+x mongod",
+    "c9-run-mongo": "./mongod",
+    "vsc-config-mongo": "mkdir data && echo 'mongod --bind_ip=$IP --dbpath=data --nojournal --rest \"$@\"'",
+    "vsc-run-mongo": "mongod --port 27017 --dbpath=./data",
+    "vsc-mongo": "npm run vsc-run-mongo"    
   },
   "author": "Gene Culling",
   "license": "ISC",
@@ -19,6 +25,7 @@
     "bower": "^1.8.0",
     "express": "^4.15.3",
     "mongodb": "^2.2.28",
+    "mongoose": "^4.10.6",
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",
     "socket.io": "^2.0.3"
