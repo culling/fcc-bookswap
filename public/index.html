@@ -3,36 +3,49 @@
         <!-- jQuery -->
         <script src="/lib/jquery/dist/jquery.js"></script>
 
+        <!-- ES 6 -->
+        <script src="/lib/babel/browser.js"></script>
 
-        <script type="text/javascript">
-           	var submitForm = function(){
-                //var formData = JSON.stringify(jQuery("#userForm").serializeArray());
-                var formData = {
-                    username: jQuery("#username").val(),
-                    password: jQuery("#password").val(),
-                    email:    jQuery("#email").val(),
-                }
-                //console.log(formData);
+        <!-- React -->
+        <script src="/lib/react/react.js"></script>
+        <script src="/lib/react/react-dom.js"></script>
 
-                jQuery.ajax({
-                    type: "POST",
-                    url: "api/users",
-                    data: JSON.stringify(formData),
-                    success: function(){},
-                    dataType: "json",
-                    contentType : "application/json"
-                }); 
-            }
+
+        <!-- Materialize -->
+            <!--Import Google Icon Font-->
+            <link                   rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" >        
+        <link   type="text/css"     rel="stylesheet" href="/lib/materialize/dist/css/materialize.css">
+        <script type="text/javascript" src="/lib/materialize/dist/js/materialize.min.js"></script>
+
+
+
+        <!-- Socket.IO -->
+        <script src="/socket.io/socket.io.js"></script>
+        <script >
+            var socket = io();
         </script>
+
+
+        <!-- React Elements -->
+        <!-- Custom -->
+        <script src="/js/partials/HeaderContainer.jsx"  type="text/babel"></script>
+        
+        <script src="/js/user/SignupContainer.jsx"  type="text/babel"></script>
+
+
+        
+
+
+        <link rel="stylesheet"        href="/main.css">
+
+
     </head>
     <body>
-        Standard page - index
-        <form id="userForm">
-            <input id="username" type="text" placeholder="Username"/>
-            <input id="password" type="password" placeholder="Password"/>
-            <input id="email" type="email" placeholder="Email"/>
-            
-        <button type="button" onclick="submitForm()" >Submit</button>
-        </form>
+        <br />
+        <div class="container"> 
+        <div id="header-container"></div>
+
+        <div id="signup-container"></div>
+        </div>
     </body>
 </html>

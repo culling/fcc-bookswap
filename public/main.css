@@ -1,0 +1,7 @@
+
+.details-div-visible {
+  visibility: visible; }
+
+.details-div-hidden {
+  visibility: hidden;
+  display: none; }
