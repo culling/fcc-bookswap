@@ -1,0 +1,26 @@
+{
+  "name": "fcc-bookswap",
+  "version": "1.0.0",
+  "description": "Free Code Camp - Manage a Book Trading Club",
+  "main": "server.js",
+  "scripts": {
+    "build": "npm install && bower install",
+    "test": "mocha --watch --recursive test",
+    "devmode": "nodemon ./server.js"
+  },
+  "author": "Gene Culling",
+  "license": "ISC",
+  "devDependencies": {
+    "chai": "^4.0.2",
+    "mocha": "^3.4.2"
+  },
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "bower": "^1.8.0",
+    "express": "^4.15.3",
+    "mongodb": "^2.2.28",
+    "passport": "^0.3.2",
+    "passport-local": "^1.0.0",
+    "socket.io": "^2.0.3"
+  }
+}
