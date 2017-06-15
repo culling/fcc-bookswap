@@ -6,6 +6,9 @@ var router          = express.Router();
 var config      = require("./../../config/config");
 var mongoExport = require("./../../config/mongo");
 
+//
+var passport    = require("./../../config/passport");
+
 
 router.get('/users', function(req, res){
     mongoExport.users.findAll(function(users){
@@ -15,17 +18,30 @@ router.get('/users', function(req, res){
     }) ;
 });
 
-router.post("/signin", function(req, res){
-    var userDetails = req.body;
-    console.log(userDetails);
-
-})
-
 router.post("/users", function(req, res){
     //var newUser = ({username: "jane",password: "secret", email: "jane@gmail.com"});
     var newUser = req.body;
     mongoExport.users.create(newUser);
     res.end();
-})
+});
+
+
+router.get("/user", function(req, res){
+    var user = req.user;
+    if(user){
+        user.type = "user";
+    }else{
+        user = {
+            type: "ip",
+            username: req.ip
+        }
+    }
+    res.send(user);
+});
+
+
+
+
+
 
 module.exports = router;

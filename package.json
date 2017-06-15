@@ -12,7 +12,7 @@
     "c9-run-mongo": "./mongod",
     "vsc-config-mongo": "mkdir data && echo 'mongod --bind_ip=$IP --dbpath=data --nojournal --rest \"$@\"'",
     "vsc-run-mongo": "mongod --port 27017 --dbpath=./data",
-    "vsc-mongo": "npm run vsc-run-mongo"    
+    "vsc-mongo": "npm run vsc-run-mongo"
   },
   "author": "Gene Culling",
   "license": "ISC",
@@ -23,7 +23,12 @@
   "dependencies": {
     "body-parser": "^1.17.2",
     "bower": "^1.8.0",
+    "connect-flash": "^0.1.1",
+    "cookie-parser": "^1.4.3",
+    "crypto": "0.0.3",
+    "ejs": "^2.5.6",
     "express": "^4.15.3",
+    "express-session": "^1.15.3",
     "mongodb": "^2.2.28",
     "mongoose": "^4.10.6",
     "passport": "^0.3.2",

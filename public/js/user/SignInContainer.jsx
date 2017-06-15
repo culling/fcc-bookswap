@@ -19,7 +19,7 @@ class SignInContainer extends React.Component{
 
         jQuery.ajax({
             type: "POST",
-            url: "api/users",
+            url: "api/signin",
             data: JSON.stringify(formDataObject),
             success: function(){},
             dataType: "json",
@@ -33,9 +33,7 @@ class SignInContainer extends React.Component{
             <header>Sign In</header>
             <form id="signinForm">
                 <input id="username" name="username" type="text" placeholder="Username"/>
-                <input id="password" name="password" type="password" placeholder="Password"/>
-
-                
+                <input id="password" name="password" type="password" placeholder="Password"/>   
             <button type="button" className="btn" onClick={this._submitForm.bind(this)} >Submit</button>
             </form>
         </div>

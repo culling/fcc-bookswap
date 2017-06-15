@@ -11,11 +11,10 @@ class SignupContainer extends React.Component{
         return returnArray;
     }
 
-    _submitForm(){
-        var formDataSerializedArray = jQuery("#signinForm").serializeArray();
+    _signupForm(){
+        var formDataSerializedArray = jQuery("#signupForm").serializeArray();
         var formDataObject = this.objectifyForm(formDataSerializedArray);
         console.log(JSON.stringify( formDataObject ));
-
 
         jQuery.ajax({
             type: "POST",
@@ -25,18 +24,19 @@ class SignupContainer extends React.Component{
             dataType: "json",
             contentType : "application/json"
         });
+
     }
 
     render(){
         return(
         <div>
             <header>Sign Up</header>
-            <form id="userForm">
-                <input id="username" type="text" placeholder="Username"/>
-                <input id="password" type="password" placeholder="Password"/>
-                <input id="email"   type="email" placeholder="Email"/>
+            <form id="signupForm">
+                <input id="username" name="username" type="text" placeholder="Username"/>
+                <input id="password" name="password" type="password" placeholder="Password"/>
+                <input id="email"    name="email"    type="email" placeholder="Email"/>
                 
-            <button type="button" className="btn" onClick={this._submitForm.bind(this)} >Submit</button>
+            <button type="button" className="btn" onClick={this._signupForm.bind(this)} >Submit</button>
             </form>
         </div>
         )}

@@ -9,11 +9,16 @@ class HeaderContainer extends React.Component{
             .toggleClass("div-hidden")
     }
 
-    _signInClicked(){
-        console.log("signup Clicked");
+    _loginClicked(){
+        console.log("login Clicked");
+        /*
         jQuery("#signin-container")
             .toggleClass("div-hidden")
+        */
+        window.location = "/login";
     }
+
+
 
 
     render(){
@@ -25,7 +30,7 @@ class HeaderContainer extends React.Component{
                 </a>
                 <div className="row">
                     <button className="btn" onClick={this._signUpClicked.bind(this)}>Sign Up</button>
-                    <button className="btn" onClick={this._signInClicked.bind(this)}>Sign In</button>
+                    <button className="btn" onClick={this._loginClicked.bind(this)}>Log In</button>
                 </div>
 
             </div>
