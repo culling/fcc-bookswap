@@ -1,8 +1,6 @@
 var passport        =   require('passport');
 var LocalStrategy   =   require('passport-local').Strategy;
 var mongo           =   require("./../mongo");
-//var User            =   mongo.users ;
-
 var User            =   mongo.users.UserModel;
 
 module.exports = function(){

@@ -58,7 +58,8 @@ UserSchema.methods.authenticate = function(password){
 
 
 // Compile model from schema
-var UserModel = mongoose.model('User', UserSchema );
+var UserModel       = mongoose.model('User', UserSchema );
+exports.UserModel   = UserModel;
 
 
 /*
@@ -88,7 +89,9 @@ exports.findByUsername = function(username, cb){
     });
 }
 
-exports.drop = UserModel.collection.drop();
+exports.drop = function(){
+    UserModel.collection.drop();
+};
 
 exports.create  = function(user){
     "Create Called"
@@ -107,4 +110,3 @@ exports.findAll = function(cb){
     );
 };
 
-exports.UserModel = UserModel;

@@ -31,7 +31,7 @@
         <script src="/js/partials/HeaderContainer.jsx"  type="text/babel"></script>
         
         <script src="/js/user/SignupContainer.jsx"      type="text/babel"></script>
-        <script src="/js/user/SignInContainer.jsx"      type="text/babel"></script>
+        <!--script src="/js/user/SignInContainer.jsx"      type="text/babel"></script-->
 
 
         
@@ -46,15 +46,12 @@
         <div class="container"> 
         <div id="header-container"></div>
         <div id="signup-container" class="div-hidden"></div>
-        <br />
-        
-        <br />
         <% for (var i in messages) { %> 
             <div class= "flash">
                 <%= messages[i] %>
             </div> 
         <% } %>        
-        <br />
+
 
         <form action="/login" method="post">
              <div class="form-group row">
@@ -69,9 +66,9 @@
                     <input type="password" name="password" class="form-control">
                 </div>
             </div>
-            <input type="submit" value="Login" >
+            <button     type="submit" class="btn" >Submit</button>
             <a href="/">
-                <button type="button"  >Cancel</button>
+                <button type="button" class="btn" >Back to Home</button>
             </a>
         </form>
 
