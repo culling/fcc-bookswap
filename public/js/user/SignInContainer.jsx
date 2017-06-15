@@ -1,8 +1,9 @@
-class SignupContainer extends React.Component{
+class SignInContainer extends React.Component{
     constructor(props){
         super();
-
     }
+
+
     objectifyForm(formArray) {//serialize data function
         var returnArray = {};
         for (var i = 0; i < formArray.length; i++){
@@ -16,11 +17,10 @@ class SignupContainer extends React.Component{
         var formDataObject = this.objectifyForm(formDataSerializedArray);
         console.log(JSON.stringify( formDataObject ));
 
-
         jQuery.ajax({
             type: "POST",
             url: "api/users",
-            data: JSON.stringify(formDataObject ),
+            data: JSON.stringify(formDataObject),
             success: function(){},
             dataType: "json",
             contentType : "application/json"
@@ -30,11 +30,11 @@ class SignupContainer extends React.Component{
     render(){
         return(
         <div>
-            <header>Sign Up</header>
-            <form id="userForm">
-                <input id="username" type="text" placeholder="Username"/>
-                <input id="password" type="password" placeholder="Password"/>
-                <input id="email"   type="email" placeholder="Email"/>
+            <header>Sign In</header>
+            <form id="signinForm">
+                <input id="username" name="username" type="text" placeholder="Username"/>
+                <input id="password" name="password" type="password" placeholder="Password"/>
+
                 
             <button type="button" className="btn" onClick={this._submitForm.bind(this)} >Submit</button>
             </form>
@@ -43,5 +43,5 @@ class SignupContainer extends React.Component{
 }
 
 ReactDOM.render (
-    <SignupContainer />, document.getElementById('signup-container')
+    <SignInContainer />, document.getElementById('signin-container')
 )

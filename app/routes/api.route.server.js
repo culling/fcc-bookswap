@@ -15,6 +15,12 @@ router.get('/users', function(req, res){
     }) ;
 });
 
+router.post("/signin", function(req, res){
+    var userDetails = req.body;
+    console.log(userDetails);
+
+})
+
 router.post("/users", function(req, res){
     //var newUser = ({username: "jane",password: "secret", email: "jane@gmail.com"});
     var newUser = req.body;

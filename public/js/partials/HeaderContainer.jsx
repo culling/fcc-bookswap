@@ -3,6 +3,18 @@ class HeaderContainer extends React.Component{
         super();
 
     }
+    _signUpClicked(){
+        console.log("signup Clicked");
+        jQuery("#signup-container")
+            .toggleClass("div-hidden")
+    }
+
+    _signInClicked(){
+        console.log("signup Clicked");
+        jQuery("#signin-container")
+            .toggleClass("div-hidden")
+    }
+
 
     render(){
         return(
@@ -11,6 +23,11 @@ class HeaderContainer extends React.Component{
                 <a href="https://www.freecodecamp.com/challenges/manage-a-book-trading-club">
                     https://www.freecodecamp.com/challenges/manage-a-book-trading-club
                 </a>
+                <div className="row">
+                    <button className="btn" onClick={this._signUpClicked.bind(this)}>Sign Up</button>
+                    <button className="btn" onClick={this._signInClicked.bind(this)}>Sign In</button>
+                </div>
+
             </div>
         )
     }

@@ -5,3 +5,10 @@
 .details-div-hidden {
   visibility: hidden;
   display: none; }
+
+.div-visible {
+  visibility: visible; }
+
+.div-hidden {
+  visibility: hidden;
+  display: none; }
