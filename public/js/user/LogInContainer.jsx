@@ -1,4 +1,4 @@
-class SignInContainer extends React.Component{
+class LogInContainer extends React.Component{
     constructor(props){
         super(props);
         this.state = {
@@ -51,7 +51,7 @@ class SignInContainer extends React.Component{
 
     render(){
         return(
-        <div>
+        <div id="login-container" className="div-hidden">
             <header>Log In</header>
             <form id="signinForm">
                 <input id="username" name="username" type="text" placeholder="Username"/>
@@ -62,6 +62,4 @@ class SignInContainer extends React.Component{
         )}
 }
 
-ReactDOM.render (
-    <SignInContainer />, document.getElementById('login-container')
-)
+export default LogInContainer;

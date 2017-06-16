@@ -1,3 +1,11 @@
+import React from 'react';
+import {render} from 'react-dom';
+
+import HeaderContainer  from './partials/HeaderContainer.jsx';
+import LoginContainer   from './user/LogInContainer.jsx';
+import SignupContainer  from './user/SignupContainer.jsx';
+
+
 class ReactContainer extends React.Component{
 
     constructor(props){
@@ -25,10 +33,9 @@ class ReactContainer extends React.Component{
     render(){
         return(
             <div>
-
-                <div id='header-container'/>
-                <div id="signup-container"  className="div-hidden"></div>
-                <div id="login-container"  className="div-hidden"></div>
+                <HeaderContainer />
+                <SignupContainer />
+                <LoginContainer />
 
             </div>
         )
@@ -37,7 +44,4 @@ class ReactContainer extends React.Component{
 }
 
 
-
-ReactDOM.render (
-    <ReactContainer />, document.getElementById('react-container')
-)
+render(<ReactContainer />, document.getElementById('react-container'));

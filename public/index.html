@@ -27,18 +27,19 @@
 
 
         <!-- React Elements -->
-        <!-- Custom -->
-
-
-        <script src="/js/ReactContainer.jsx"            type="text/babel"></script>
-
-
-        <!-- Partials -->
+        <!-- Custom >
         <script src="/js/partials/HeaderContainer.jsx"  type="text/babel"></script>
         
+
+        <script src="/js/ReactContainer.jsx"            type="text/babel"></script>
+        < -->
+        <!-- Partials -->
+        <!--
         <script src="/js/user/SignupContainer.jsx"      type="text/babel"></script>
         <script src="/js/user/LogInContainer.jsx"       type="text/babel"></script>
+        -->
 
+        <!-- Bundeled React --> 
 
         <link rel="stylesheet"        href="/main.css">
 
@@ -46,10 +47,11 @@
     </head>
     <body>
         <br />
-        <div class="container"> 
-
-        <div id="react-container"></div>
-
+        <div class="container">
+            <div id="react-container">
+                <script src="/app/bundle.js" type="text/javascript"></script>
+            </div>
         </div>
+
     </body>
 </html>

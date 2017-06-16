@@ -29,7 +29,7 @@ class SignupContainer extends React.Component{
 
     render(){
         return(
-        <div>
+        <div id="signup-container" className="div-hidden">
             <header>Sign Up</header>
             <form id="signupForm">
                 <input id="username" name="username" type="text" placeholder="Username"/>
@@ -42,6 +42,4 @@ class SignupContainer extends React.Component{
         )}
 }
 
-ReactDOM.render (
-    <SignupContainer />, document.getElementById('signup-container')
-)
+export default SignupContainer;

@@ -61,8 +61,5 @@ class HeaderContainer extends React.Component{
     }
 }
 
+export default HeaderContainer;
 
-
-ReactDOM.render (
-    <HeaderContainer />, document.getElementById('header-container')
-)
