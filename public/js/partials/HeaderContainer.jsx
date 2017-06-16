@@ -1,21 +1,43 @@
 class HeaderContainer extends React.Component{
     constructor(props){
         super();
-
+        this.state = {
+            user:[]
+        }
     }
+
+    componentWillMount(){
+        this._getUser();
+    }
+
+    _getUser(){
+        //User
+        jQuery.ajax({
+            method: 'GET',
+            url:"/api/user",
+            success: (user)=>{
+                this.setState({ user: user })
+            }
+        });
+    }
+
     _signUpClicked(){
         console.log("signup Clicked");
         jQuery("#signup-container")
-            .toggleClass("div-hidden")
+            .toggleClass("div-hidden");
+        jQuery("#login-container")
+            .attr("class", "div-hidden");
+        
     }
 
     _loginClicked(){
         console.log("login Clicked");
-        /*
-        jQuery("#signin-container")
+        
+        jQuery("#login-container")
             .toggleClass("div-hidden")
-        */
-        window.location = "/login";
+        jQuery("#signup-container")
+            .attr("class", "div-hidden");
+        //window.location = "/login";
     }
 
 
@@ -32,11 +54,15 @@ class HeaderContainer extends React.Component{
                     <button className="btn" onClick={this._signUpClicked.bind(this)}>Sign Up</button>
                     <button className="btn" onClick={this._loginClicked.bind(this)}>Log In</button>
                 </div>
-
+                <div><h5> Welcome {this.state.user.username} </h5></div>
+                
             </div>
         )
     }
 }
+
+
+
 ReactDOM.render (
     <HeaderContainer />, document.getElementById('header-container')
 )

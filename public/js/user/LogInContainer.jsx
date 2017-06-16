@@ -1,6 +1,13 @@
 class SignInContainer extends React.Component{
     constructor(props){
-        super();
+        super(props);
+        this.state = {
+            user:[]
+        }
+    }
+
+    componentWillMount(){
+        //this.props._getUser();
     }
 
 
@@ -19,18 +26,33 @@ class SignInContainer extends React.Component{
 
         jQuery.ajax({
             type: "POST",
-            url: "api/signin",
+            url: "/login",
             data: JSON.stringify(formDataObject),
-            success: function(){},
+            success: function(){
+                //this.props._getUser();
+            },
             dataType: "json",
             contentType : "application/json"
         });
     }
 
+/*
+    _getUser(){
+        //User
+        jQuery.ajax({
+            method: 'GET',
+            url:"/api/user",
+            success: (user)=>{
+                this.setState({ user: user })
+            }
+        });
+    }
+*/
+
     render(){
         return(
         <div>
-            <header>Sign In</header>
+            <header>Log In</header>
             <form id="signinForm">
                 <input id="username" name="username" type="text" placeholder="Username"/>
                 <input id="password" name="password" type="password" placeholder="Password"/>   
@@ -41,5 +63,5 @@ class SignInContainer extends React.Component{
 }
 
 ReactDOM.render (
-    <SignInContainer />, document.getElementById('signin-container')
+    <SignInContainer />, document.getElementById('login-container')
 )
