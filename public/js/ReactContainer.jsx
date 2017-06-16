@@ -16,7 +16,7 @@ class ReactContainer extends React.Component{
     }
 
     componentWillMount(){
-        this._getUser();
+        //this._getUser();
     }
 
     _getUser(){
@@ -25,7 +25,8 @@ class ReactContainer extends React.Component{
             method: 'GET',
             url:"/api/user",
             success: (user)=>{
-                this.setState({ user: user })
+                console.log("Called - GetUser");
+                this.setState({ user: user });
             }
         });
     }
@@ -34,8 +35,8 @@ class ReactContainer extends React.Component{
         return(
             <div>
                 <HeaderContainer />
-                <SignupContainer />
-                <LoginContainer />
+                <SignupContainer  />
+                <LoginContainer  getUser={ () => {this._getUser()} } />
 
             </div>
         )

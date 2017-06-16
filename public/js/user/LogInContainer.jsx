@@ -29,7 +29,8 @@ class LogInContainer extends React.Component{
             url: "/login",
             data: JSON.stringify(formDataObject),
             success: function(){
-                //this.props._getUser();
+                this.props._getUser;
+                window.location = "/";
             },
             dataType: "json",
             contentType : "application/json"
@@ -56,7 +57,7 @@ class LogInContainer extends React.Component{
             <form id="signinForm">
                 <input id="username" name="username" type="text" placeholder="Username"/>
                 <input id="password" name="password" type="password" placeholder="Password"/>   
-            <button type="button" className="btn" onClick={this._submitForm.bind(this)} >Submit</button>
+            <button type="button" className="btn" onClick={() => this._submitForm.bind(this)} >Submit</button>
             </form>
         </div>
         )}

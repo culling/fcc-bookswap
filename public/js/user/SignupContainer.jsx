@@ -20,7 +20,9 @@ class SignupContainer extends React.Component{
             type: "POST",
             url: "api/users",
             data: JSON.stringify(formDataObject ),
-            success: function(){},
+            success: function(){
+                window.location = "/";
+            },
             dataType: "json",
             contentType : "application/json"
         });
