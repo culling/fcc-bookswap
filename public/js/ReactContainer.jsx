@@ -8,7 +8,7 @@ import {render} from 'react-dom';
 import HeaderContainer  from './partials/HeaderContainer.jsx';
 import LoginContainer   from './user/LogInContainer.jsx';
 import SignupContainer  from './user/SignupContainer.jsx';
-
+import ProfileContainer  from './user/ProfileContainer.jsx';
 
 class ReactContainer extends React.Component{
 
@@ -20,14 +20,16 @@ class ReactContainer extends React.Component{
         }
 
         //Binding to this for functions
-        this._loginClick = this._loginClick.bind(this);
-        this._signupForm = this._signupForm.bind(this);
-        this._logOutClick = this._logOutClick.bind(this);
-    }
+        this._loginClick        = this._loginClick.bind(this);
+        this._signupForm        = this._signupForm.bind(this);
+        this._logOutClick       = this._logOutClick.bind(this);
+        this._updateProfileClick = this._updateProfileClick.bind(this);
+
+    };
 
     componentWillMount(){
         this._getUser.bind(this);
-    }
+    };
 
 
     _objectifyForm(formArray) {//serialize data function
@@ -36,7 +38,7 @@ class ReactContainer extends React.Component{
             returnArray[formArray[i]['name']] = formArray[i]['value'];
         }
         return returnArray;
-    }
+    };
 
 
     _signupForm(){
@@ -48,21 +50,18 @@ class ReactContainer extends React.Component{
             type: "POST",
             url: "api/users",
             data: JSON.stringify(formDataObject ),
-            success: function(result,status,xhr){
+            success: function(){
 
-                //window.location = "/";
             },
             dataType: "text",
             contentType : "application/json"
         });
-    }
+    };
 
     _loginClick(){
         let _this = this;
         var formDataSerializedArray = jQuery("#loginForm").serializeArray();
         var formDataObject = this._objectifyForm(formDataSerializedArray);
-        //console.log(JSON.stringify( formDataObject ));
-        //console.log("Login Clicked");
         jQuery.ajax({
             type: "POST",
             url: "/login",
@@ -81,7 +80,7 @@ class ReactContainer extends React.Component{
             dataType: "text",
             contentType : "application/json"
         });
-    }
+    };
 
     _logOutClick(){
         let _this = this;
@@ -95,9 +94,24 @@ class ReactContainer extends React.Component{
             dataType: "text",
             contentType : "application/json"
         });
+    };
 
+    _updateProfileClick(){
+        let _this = this;
+        var formDataSerializedArray = jQuery("#profileForm").serializeArray();
+        var formDataObject = this._objectifyForm(formDataSerializedArray);
+        console.log(JSON.stringify( formDataObject ));
+        jQuery.ajax({
+            type: "PUT",
+            url: "api/users",
+            data: JSON.stringify(formDataObject ),
+            success: function(){
+                _this._getUser();
+            },
+            dataType: "text",
+            contentType : "application/json"
+        });        
     }
-
 
 
     _getUser(){
@@ -114,18 +128,17 @@ class ReactContainer extends React.Component{
             .attr("class", "div-hidden");
         jQuery("#signup-container")
             .attr("class", "div-hidden");
-
-    }
+    };
 
 
 
     render(){
         return(
             <div>
-                <HeaderContainer  logOutClick={() => this._logOutClick.bind(this) } user={this.state.user}/>
+                <HeaderContainer  user={this.state.user}  logOutClick={() => this._logOutClick.bind(this) } />
                 <SignupContainer  onClick={()=> this._signupForm.bind(this)}/>
                 <LoginContainer   logInClick={()=> this._loginClick.bind(this) } />
-
+                <ProfileContainer user={this.state.user} updateProfileClick={() => this._updateProfileClick.bind(this) } />
             </div>
         )
     }

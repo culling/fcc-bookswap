@@ -1,7 +1,8 @@
 //Settings
 var config      = require("./config");
-//var mongo       = require("./mongo");
 var passport    = require("./passport");
+//var mongo       = require("./mongo");
+
 //var secrets     = require("./secrets");
 
 //Modules

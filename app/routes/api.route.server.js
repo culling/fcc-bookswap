@@ -25,6 +25,19 @@ router.post("/users", function(req, res){
     res.end();
 });
 
+router.put("/users", function(req, res){
+    //var newUser = ({username: "jane",password: "secret", email: "jane@gmail.com"});
+    let user = req.body;
+        user.username = req.user.username;
+
+    //console.log(req.user);
+    console.log(user);
+    
+    
+    //mongoExport.users.UserModel.update({"username": user.username}) //.create(newUser);
+    res.end();
+});
+
 
 router.get("/user", function(req, res){
     var user = req.user;

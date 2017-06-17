@@ -16,36 +16,29 @@ class HeaderContainer extends React.Component{
             .toggleClass("div-hidden");
         jQuery("#login-container")
             .attr("class", "div-hidden");
-        
+        jQuery("#profile-container")
+            .attr("class", "div-hidden");
     }
 
     _loginClicked(){
         console.log("login Clicked");
-        
         jQuery("#login-container")
             .toggleClass("div-hidden")
         jQuery("#signup-container")
             .attr("class", "div-hidden");
-        //window.location = "/login";
+        jQuery("#profile-container")
+            .attr("class", "div-hidden");
     }
 
-/*
-    _logOutClicked(){
-        jQuery.ajax({
-            type: "GET",
-            url: "/logout",
-            success: function(){
-                console.log("Success from LogOut");
-                //this.props._getUser;
-                window.location = "/";
-            },
-            dataType: "json",
-            contentType : "application/json"
-        });
-
+    _profileClicked(){
+        console.log("Profile Clicked");
+        jQuery("#signup-container")
+            .attr("class", "div-hidden");
+        jQuery("#login-container")
+            .attr("class", "div-hidden");
+        jQuery("#profile-container")
+            .toggleClass("div-hidden");
     }
-*/
-
 
     render(){
         return(
@@ -58,7 +51,7 @@ class HeaderContainer extends React.Component{
                     <button className="btn" onClick={this._signUpClicked.bind(this)}>Sign Up</button>
                     <button className="btn" onClick={this._loginClicked.bind(this)}>Log In</button>
                     <button className="btn" onClick={this.props.logOutClick()}>Log Out</button>
-
+                    <button className="btn" onClick={this._profileClicked.bind(this)}>Profile</button>
                 </div>
                 <div><h5> Welcome {this.props.user.username} </h5></div>
                 
