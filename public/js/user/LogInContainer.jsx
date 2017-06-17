@@ -23,12 +23,14 @@ class LogInContainer extends React.Component{
         var formDataSerializedArray = jQuery("#signinForm").serializeArray();
         var formDataObject = this.objectifyForm(formDataSerializedArray);
         console.log(JSON.stringify( formDataObject ));
+        console.log("Login Clicked");
 
         jQuery.ajax({
             type: "POST",
             url: "/login",
             data: JSON.stringify(formDataObject),
             success: function(){
+                console.log("Success from Login Container");
                 this.props._getUser;
                 window.location = "/";
             },
@@ -57,7 +59,7 @@ class LogInContainer extends React.Component{
             <form id="signinForm">
                 <input id="username" name="username" type="text" placeholder="Username"/>
                 <input id="password" name="password" type="password" placeholder="Password"/>   
-            <button type="button" className="btn" onClick={() => this._submitForm.bind(this)} >Submit</button>
+            <button type="button" className="btn" onClick={this._submitForm.bind(this)} >Submit</button>
             </form>
         </div>
         )}

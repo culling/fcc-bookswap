@@ -41,6 +41,21 @@ class HeaderContainer extends React.Component{
     }
 
 
+    _logOutClicked(){
+        jQuery.ajax({
+            type: "GET",
+            url: "/logout",
+            success: function(){
+                console.log("Success from LogOut");
+                //this.props._getUser;
+                window.location = "/";
+            },
+            dataType: "json",
+            contentType : "application/json"
+        });
+
+    }
+
 
 
     render(){
@@ -53,6 +68,8 @@ class HeaderContainer extends React.Component{
                 <div className="row">
                     <button className="btn" onClick={this._signUpClicked.bind(this)}>Sign Up</button>
                     <button className="btn" onClick={this._loginClicked.bind(this)}>Log In</button>
+                    <button className="btn" onClick={this._logOutClicked.bind(this)}>Log Out</button>
+
                 </div>
                 <div><h5> Welcome {this.state.user.username} </h5></div>
                 
