@@ -7,9 +7,9 @@ class HeaderContainer extends React.Component{
     }
 
     componentWillMount(){
-        this._getUser();
+        //this._getUser();
     }
-
+/*
     _getUser(){
         //User
         jQuery.ajax({
@@ -20,7 +20,7 @@ class HeaderContainer extends React.Component{
             }
         });
     }
-
+*/
     _signUpClicked(){
         console.log("signup Clicked");
         jQuery("#signup-container")
@@ -71,7 +71,7 @@ class HeaderContainer extends React.Component{
                     <button className="btn" onClick={this._logOutClicked.bind(this)}>Log Out</button>
 
                 </div>
-                <div><h5> Welcome {this.state.user.username} </h5></div>
+                <div><h5> Welcome {this.props.user.username} </h5></div>
                 
             </div>
         )

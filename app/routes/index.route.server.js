@@ -12,6 +12,9 @@ var mongoExport = require("./../../config/mongo");
 var passport    = require("passport");
 //var users       = require("./../controllers/user.controller.server");
 
+
+// 
+var http = require("http");
 /*
 router.route("/login")
     .get(
@@ -31,30 +34,31 @@ router.route("/login")
         failureFlash:       true
     } ));
 */
-/*
+
 router.post('/login', 
   passport.authenticate('local', 
   { failureRedirect: '/login' }),
   function(req, res) {
     res.redirect('/');
 });
-*/
 
-router.post("/login", function(req, res, next){
+/*
+router.post("/login", function(req, res){
     passport.authenticate("local", function(err, user, info){
       if (err) { return next(err); }
       if (!user) { return res.redirect('/login'); }
 
       req.logIn(user, function(err) {
       if (err) { return next(err); }
-      return       res.status(202).end();
-
+      //return       res.status(202).end();
+      var status = 202;
+      return res.status(status).end(http.STATUS_CODES[status]);
       //res.redirect('/users/' + user.username);
       });
     })(req, res, next);
   }
 )
-
+*/
 router.get('/logout',
   function(req, res){
     req.logout();
