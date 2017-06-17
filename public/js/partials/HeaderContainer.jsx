@@ -7,20 +7,9 @@ class HeaderContainer extends React.Component{
     }
 
     componentWillMount(){
-        //this._getUser();
+
     }
-/*
-    _getUser(){
-        //User
-        jQuery.ajax({
-            method: 'GET',
-            url:"/api/user",
-            success: (user)=>{
-                this.setState({ user: user })
-            }
-        });
-    }
-*/
+
     _signUpClicked(){
         console.log("signup Clicked");
         jQuery("#signup-container")
@@ -40,7 +29,7 @@ class HeaderContainer extends React.Component{
         //window.location = "/login";
     }
 
-
+/*
     _logOutClicked(){
         jQuery.ajax({
             type: "GET",
@@ -55,7 +44,7 @@ class HeaderContainer extends React.Component{
         });
 
     }
-
+*/
 
 
     render(){
@@ -68,7 +57,7 @@ class HeaderContainer extends React.Component{
                 <div className="row">
                     <button className="btn" onClick={this._signUpClicked.bind(this)}>Sign Up</button>
                     <button className="btn" onClick={this._loginClicked.bind(this)}>Log In</button>
-                    <button className="btn" onClick={this._logOutClicked.bind(this)}>Log Out</button>
+                    <button className="btn" onClick={this.props.logOutClick()}>Log Out</button>
 
                 </div>
                 <div><h5> Welcome {this.props.user.username} </h5></div>

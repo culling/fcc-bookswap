@@ -11,24 +11,6 @@ class SignupContainer extends React.Component{
         return returnArray;
     }
 
-    _signupForm(){
-        var formDataSerializedArray = jQuery("#signupForm").serializeArray();
-        var formDataObject = this.objectifyForm(formDataSerializedArray);
-        console.log(JSON.stringify( formDataObject ));
-
-        jQuery.ajax({
-            type: "POST",
-            url: "api/users",
-            data: JSON.stringify(formDataObject ),
-            success: function(){
-                window.location = "/";
-            },
-            dataType: "json",
-            contentType : "application/json"
-        });
-
-    }
-
     render(){
         return(
         <div id="signup-container" className="div-hidden">
@@ -38,7 +20,7 @@ class SignupContainer extends React.Component{
                 <input id="password" name="password" type="password" placeholder="Password"/>
                 <input id="email"    name="email"    type="email" placeholder="Email"/>
                 
-            <button type="button" className="btn" onClick={this._signupForm.bind(this)} >Submit</button>
+            <button type="button" className="btn" onClick={this.props.onClick() } >Submit</button>
             </form>
         </div>
         )}

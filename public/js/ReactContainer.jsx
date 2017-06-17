@@ -1,3 +1,7 @@
+// References and useful pages
+//https://stackoverflow.com/questions/41216948/this-setstate-is-not-a-function-when-trying-to-save-response-on-state
+
+
 import React from 'react';
 import {render} from 'react-dom';
 
@@ -17,6 +21,8 @@ class ReactContainer extends React.Component{
 
         //Binding to this for functions
         this._loginClick = this._loginClick.bind(this);
+        this._signupForm = this._signupForm.bind(this);
+        this._logOutClick = this._logOutClick.bind(this);
     }
 
     componentWillMount(){
@@ -33,9 +39,27 @@ class ReactContainer extends React.Component{
     }
 
 
+    _signupForm(){
+        let _this = this;
+        var formDataSerializedArray = jQuery("#signupForm").serializeArray();
+        var formDataObject = this._objectifyForm(formDataSerializedArray);
+        console.log(JSON.stringify( formDataObject ));
+        jQuery.ajax({
+            type: "POST",
+            url: "api/users",
+            data: JSON.stringify(formDataObject ),
+            success: function(result,status,xhr){
+
+                //window.location = "/";
+            },
+            dataType: "text",
+            contentType : "application/json"
+        });
+    }
+
     _loginClick(){
         let _this = this;
-        var formDataSerializedArray = jQuery("#signinForm").serializeArray();
+        var formDataSerializedArray = jQuery("#loginForm").serializeArray();
         var formDataObject = this._objectifyForm(formDataSerializedArray);
         //console.log(JSON.stringify( formDataObject ));
         //console.log("Login Clicked");
@@ -43,14 +67,38 @@ class ReactContainer extends React.Component{
             type: "POST",
             url: "/login",
             data: JSON.stringify(formDataObject),
-            success: function(result,status,xhr){
-                //console.log("Success from Login Container");
+            success: function(){
                 _this._getUser();
+            },
+            statusCode:{
+                400:function(){
+                    alert("Login Failed");
+                },
+                401: function(){
+                    alert("Username or password incorrect");
+                }
             },
             dataType: "text",
             contentType : "application/json"
         });
     }
+
+    _logOutClick(){
+        let _this = this;
+        jQuery.ajax({
+            type: "GET",
+            url: "/logout",
+            success: function(){
+                console.log("Success from LogOut");
+                _this._getUser();
+            },
+            dataType: "text",
+            contentType : "application/json"
+        });
+
+    }
+
+
 
     _getUser(){
         //User
@@ -62,6 +110,11 @@ class ReactContainer extends React.Component{
                 this.setState({ user: user });
             }
         });
+        jQuery("#login-container")
+            .attr("class", "div-hidden");
+        jQuery("#signup-container")
+            .attr("class", "div-hidden");
+
     }
 
 
@@ -69,9 +122,9 @@ class ReactContainer extends React.Component{
     render(){
         return(
             <div>
-                <HeaderContainer  user={this.state.user}/>
-                <SignupContainer  />
-                <LoginContainer   getUser={()=> this._loginClick.bind(this) } />
+                <HeaderContainer  logOutClick={() => this._logOutClick.bind(this) } user={this.state.user}/>
+                <SignupContainer  onClick={()=> this._signupForm.bind(this)}/>
+                <LoginContainer   logInClick={()=> this._loginClick.bind(this) } />
 
             </div>
         )

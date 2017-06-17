@@ -35,12 +35,15 @@ router.route("/login")
     } ));
 */
 
+
 router.post('/login', 
-  passport.authenticate('local', 
-  { failureRedirect: '/login' }),
+  passport.authenticate('local'),
   function(req, res) {
-    res.redirect('/');
+    var status = 202;
+    res.status(status).end(http.STATUS_CODES[status]);
+    //res.redirect('/');
 });
+
 
 /*
 router.post("/login", function(req, res){
@@ -52,13 +55,15 @@ router.post("/login", function(req, res){
       if (err) { return next(err); }
       //return       res.status(202).end();
       var status = 202;
-      return res.status(status).end(http.STATUS_CODES[status]);
+      res.status(status).end(http.STATUS_CODES[status]);
       //res.redirect('/users/' + user.username);
       });
-    })(req, res, next);
+    })//(req, res, next);
   }
 )
 */
+
+
 router.get('/logout',
   function(req, res){
     req.logout();
