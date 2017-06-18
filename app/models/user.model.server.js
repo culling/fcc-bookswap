@@ -49,6 +49,8 @@ UserSchema.pre('save', function (next){
     next();
 } );
 
+
+
 UserSchema.methods.hashPassword = function(password){
     return crypto.pbkdf2Sync(password, this.salt, 10000, 64).toString('base64');
 };
@@ -57,6 +59,36 @@ UserSchema.methods.hashPassword = function(password){
 UserSchema.methods.authenticate = function(password){
     return this.password === this.hashPassword(password);
 };
+
+
+
+UserSchema.methods.setPassword = function (password, cb) {
+    if (!password) {
+        return cb(new BadRequestError(options.missingPasswordError));
+    }
+
+    var self = this;
+
+    crypto.randomBytes(options.saltlen, function(err, buf) {
+        if (err) {
+            return cb(err);
+        }
+
+        var salt = buf.toString('hex');
+
+        crypto.pbkdf2(password, salt, options.iterations, options.keylen, function(err, hashRaw) {
+            if (err) {
+                return cb(err);
+            }
+
+            self.set(options.hashField, new Buffer(hashRaw, 'binary').toString('hex'));
+            self.set(options.saltField, salt);
+
+            cb(null, self);
+        });
+    });
+};
+
 
 
 // Compile model from schema

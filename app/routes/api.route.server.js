@@ -40,8 +40,30 @@ router.put("/users", function(req, res){
     user.id     = req.user._id;
     
     console.log(user);
-    //mongoExport.users.update(user);
-    
+
+    if(user.password){
+        
+        mongoExport.users.UserModel.find({"username":req.user.username}).then(function(sanitizedUser){
+            if (sanitizedUser){
+                //console.log(sanitizedUser);
+                
+                //testUserModel = new mongoExport.users.UserModel;
+                //console.log(testUserModel);
+                
+                //sanitizedUser.setPassword(user.password, function(){
+                //    sanitizedUser.save();
+                //    res.status(200).json({message: 'password reset successful'});
+                //}
+                //});
+            } else {
+                res.status(500).json({message: 'This user does not exist'});
+            }
+        },function(err){
+            console.error(err);
+        });
+    delete user.password;
+    }
+
     mongoExport.users.UserModel.update({"username": req.user.username},
         user,
         function(err, updatedUser){
