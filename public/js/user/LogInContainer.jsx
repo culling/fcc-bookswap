@@ -1,3 +1,6 @@
+import React from 'react';
+import {render} from 'react-dom';
+
 class LogInContainer extends React.Component{
     componentWillMount(){
 

@@ -35,8 +35,9 @@ var UserSchema = new Schema({
     username            : String,
     password            : String,
     email               : String,
-    salt                : String
-    
+    salt                : String,
+    firstName           : String,
+    lastName            : String    
 });
 
 UserSchema.pre('save', function (next){
@@ -62,29 +63,12 @@ var UserModel       = mongoose.model('User', UserSchema );
 exports.UserModel   = UserModel;
 
 
-/*
-var jim = new UserModel({username: "jim",password: "secret", email: "jim@gmail.com"});
-jim.save(function(err){
-    if (err) return handleError(err);
-    console.log("saved");
-});
-console.log("Jim Username: " + jim.username);
-
-jim.username = "JIM";
-jim.save(function(err){
-    if (err) return handleError(err);
-});
-console.log("Jim Username: "+ jim.username);
-*/
-
 
 exports.findByUsername = function(username, cb){
     UserModel.find({"username": username}, function(err, foundUsers){
         if(err){
             console.error(err);
         }
-        console.log("Found Users");
-        console.log(foundUsers);
         cb(foundUsers);
     });
 }
@@ -110,3 +94,7 @@ exports.findAll = function(cb){
     );
 };
 
+UserSchema.set('toJSON',{
+    getters: true,
+    virtuals: true}
+);

@@ -1,13 +1,15 @@
 // References and useful pages
 //https://stackoverflow.com/questions/41216948/this-setstate-is-not-a-function-when-trying-to-save-response-on-state
 
-
+ 
 import React from 'react';
 import {render} from 'react-dom';
 
 import HeaderContainer  from './partials/HeaderContainer.jsx';
 import LoginContainer   from './user/LogInContainer.jsx';
 import SignupContainer  from './user/SignupContainer.jsx';
+/*
+*/
 import ProfileContainer  from './user/ProfileContainer.jsx';
 
 class ReactContainer extends React.Component{
@@ -121,6 +123,8 @@ class ReactContainer extends React.Component{
             url:"/api/user",
             success: (user)=>{
                 console.log("Called - GetUser");
+                console.log("User");
+                console.log(user);
                 this.setState({ user: user });
             }
         });
@@ -134,11 +138,13 @@ class ReactContainer extends React.Component{
 
     render(){
         return(
+
             <div>
                 <HeaderContainer  user={this.state.user}  logOutClick={() => this._logOutClick.bind(this) } />
                 <SignupContainer  onClick={()=> this._signupForm.bind(this)}/>
-                <LoginContainer   logInClick={()=> this._loginClick.bind(this) } />
+                <LoginContainer   logInClick={()=> this._loginClick.bind(this) } />  
                 <ProfileContainer user={this.state.user} updateProfileClick={() => this._updateProfileClick.bind(this) } />
+  
             </div>
         )
     }

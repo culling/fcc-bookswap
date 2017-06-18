@@ -26,30 +26,56 @@ router.post("/users", function(req, res){
 });
 
 router.put("/users", function(req, res){
-    //var newUser = ({username: "jane",password: "secret", email: "jane@gmail.com"});
-    let user = req.body;
-        user.username = req.user.username;
 
-    //console.log(req.user);
+    function clean(obj){
+        for (var propName in obj){
+            if(obj[propName] === null || obj[propName] === undefined || obj[propName] === "" ){
+                delete obj[propName];
+            }
+        }
+    }
+
+    let user    = req.body;
+    clean(user);
+    user.id     = req.user._id;
+    
     console.log(user);
-    
-    
-    //mongoExport.users.UserModel.update({"username": user.username}) //.create(newUser);
-    res.end();
+
+    mongoExport.users.UserModel.update({"username": req.user.username},
+        user,
+        function(err, updatedUser){
+            if (err){
+                return next (err);
+            } else {
+
+                //res.json(updatedUser);
+                res.write("finished");
+                res.end();
+            }
+        }
+    );  //.create(newUser);
+
+    //res.end();
 });
 
 
 router.get("/user", function(req, res){
-    var user = req.user;
-    if(user){
-        user.type = "user";
+    //var requser = req.user;
+    //var user = null;
+    if(req.user){
+        mongoExport.users.findByUsername(req.user.username, function(userArray){
+            //Select the first found user
+            user = userArray[0];
+            user.type = "user";
+            res.send(user);
+        });
     }else{
-        user = {
+        var user = {
             type: "ip",
             username: req.ip
         }
+        res.send(user);
     }
-    res.send(user);
 });
 
 
