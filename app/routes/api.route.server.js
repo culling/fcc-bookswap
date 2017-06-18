@@ -40,7 +40,8 @@ router.put("/users", function(req, res){
     user.id     = req.user._id;
     
     console.log(user);
-
+    //mongoExport.users.update(user);
+    
     mongoExport.users.UserModel.update({"username": req.user.username},
         user,
         function(err, updatedUser){
@@ -53,9 +54,9 @@ router.put("/users", function(req, res){
                 res.end();
             }
         }
-    );  //.create(newUser);
+    );
+    
 
-    //res.end();
 });
 
 
@@ -65,8 +66,9 @@ router.get("/user", function(req, res){
     if(req.user){
         mongoExport.users.findByUsername(req.user.username, function(userArray){
             //Select the first found user
-            user = userArray[0];
+            user = Object.assign(userArray[0]);
             user.type = "user";
+            console.log(user);
             res.send(user);
         });
     }else{

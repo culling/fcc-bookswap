@@ -37,7 +37,8 @@ var UserSchema = new Schema({
     email               : String,
     salt                : String,
     firstName           : String,
-    lastName            : String    
+    lastName            : String,    
+    type                : String
 });
 
 UserSchema.pre('save', function (next){
@@ -78,11 +79,13 @@ exports.drop = function(){
 };
 
 exports.create  = function(user){
-    "Create Called"
+    console.log("Create Called");
     console.log(user);
     var newUser = new UserModel(user);
     newUser.save();
 };
+
+
 
 exports.findAll = function(cb){
     UserModel.find()

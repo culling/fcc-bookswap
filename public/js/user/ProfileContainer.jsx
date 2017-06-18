@@ -8,22 +8,30 @@ class ProfileContainer extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            user: this.props.user
+            user: this.props.user,
+            firstName: ""
         }
 
     }
 
     componentWillMount(){
-        this.setState({user: this.props.user});
+        this.setState({user:  this.props.user });
     }
 
-    _firstNameChange(){
+    _firstNameChange(event){
+        //console.log("Firstname Change");
+        //console.log ("VALUE", event.target.value);
+        //var user = Object.assign(this.state.user);
+        //user.firstName = event.target.value;
+        //this.setState({user: user});
 
-        console.log("Firstname Change");
-        
+        //this.setState({firstName: event.target.value});
+
     }
 
     render(){
+        //this.state.firstName = this.state.firstName || this.props.user.firstName;
+
         return(
         <div id="profile-container" className="div-visible">
             <header>Profile</header>
@@ -32,10 +40,10 @@ class ProfileContainer extends React.Component{
                 <input id="password" name="password" type="password" placeholder="Password"/>
 
                 <input id="firstName" name="firstName" type="text" 
-                    ref="firstName"
-                    value={this.state.user || ""}
-                    onChange={this._firstNameChange.bind(this)} 
+                    ref="firstName" 
                     placeholder="First Name"
+                    defaultValue={  this.props.user.firstName || "" } 
+                    //onChange={this._firstNameChange.bind(this)}
                 />
                 <input id="lastName"  name="lastName"  type="text" defaultValue={this.state.user.lastName  || ""}  placeholder="Last Name" />
 

@@ -122,9 +122,9 @@ class ReactContainer extends React.Component{
             method: 'GET',
             url:"/api/user",
             success: (user)=>{
-                console.log("Called - GetUser");
-                console.log("User");
-                console.log(user);
+                //console.log("Called - GetUser");
+                //console.log("User");
+                //console.log(user);
                 this.setState({ user: user });
             }
         });
@@ -143,8 +143,9 @@ class ReactContainer extends React.Component{
                 <HeaderContainer  user={this.state.user}  logOutClick={() => this._logOutClick.bind(this) } />
                 <SignupContainer  onClick={()=> this._signupForm.bind(this)}/>
                 <LoginContainer   logInClick={()=> this._loginClick.bind(this) } />  
+                {(this.state.user.type == "user" ) &&
                 <ProfileContainer user={this.state.user} updateProfileClick={() => this._updateProfileClick.bind(this) } />
-  
+                }
             </div>
         )
     }
