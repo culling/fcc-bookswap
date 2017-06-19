@@ -46,7 +46,7 @@ class HeaderContainer extends React.Component{
     render(){
         return(
             <div>
-                <h3>Free Code Camp - Manage a Book Trading Club</h3>
+                <h6>Free Code Camp - Manage a Book Trading Club</h6>
                 <a href="https://www.freecodecamp.com/challenges/manage-a-book-trading-club">
                     https://www.freecodecamp.com/challenges/manage-a-book-trading-club
                 </a>

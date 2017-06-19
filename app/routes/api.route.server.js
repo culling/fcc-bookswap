@@ -6,18 +6,25 @@ var router          = express.Router();
 var config      = require("./../../config/config");
 var mongoExport = require("./../../config/mongo");
 
-//
-var passport    = require("./../../config/passport");
-
-//Crypto 
-var crypto      = require('crypto');
+const url           = require("url");
+const querystring   = require('querystring');
 
 
-//
-function hashPassword (password){
-    return crypto.pbkdf2Sync(password, this.salt, 10000, 64).toString('base64');
-};
+//Controllers
+var books       = require("./../controllers/books.controller.server");
 
+
+//Custom Functions
+function clean(obj){
+    for (var propName in obj){
+        if(obj[propName] === null || obj[propName] === undefined || obj[propName] === "" ){
+            delete obj[propName];
+        }
+    }
+}
+
+
+//Users
 router.get('/users', function(req, res){
     mongoExport.users.findAll(function(users){
 
@@ -34,57 +41,37 @@ router.post("/users", function(req, res){
 });
 
 router.put("/users", function(req, res){
-
-    function clean(obj){
-        for (var propName in obj){
-            if(obj[propName] === null || obj[propName] === undefined || obj[propName] === "" ){
-                delete obj[propName];
-            }
-        }
-    }
-
     let user    = req.body;
     clean(user);
     user._id      = req.user._id;
     user.username = req.user.username;
-    
-    //console.log(user);
-    
+    //Let the password be set    
     if(user.password){
-        //var password = user.password;
-        
         mongoExport.users.updatePassword(user, function(){
             delete user.password;
         });
-
     }
-
     mongoExport.users.UserModel.update({"username": req.user.username},
         user,
         function(err, updatedUser){
             if (err){
                 return next (err);
             } else {
-
-                //res.json(updatedUser);
                 res.write("finished");
                 res.end();
             }
         }
     );
-
 });
 
 
+//Send the current user or the IP Address if none logged in
 router.get("/user", function(req, res){
-    //var requser = req.user;
-    //var user = null;
     if(req.user){
         mongoExport.users.findByUsername(req.user.username, function(userArray){
             //Select the first found user
             user = Object.assign(userArray[0]);
             user.type = "user";
-            console.log(user);
             res.send(user);
         });
     }else{
@@ -96,8 +83,20 @@ router.get("/user", function(req, res){
     }
 });
 
+//Books
+router.get("/book", function(req, res){
+    console.log(req.query);
 
+    if(req.query.title){
+        books.lookup(req.query.title, function(found){
+            res.write( found );
+            res.end();
+        });        
+    }else{
+        res.end();
+    }
 
+});
 
 
 
