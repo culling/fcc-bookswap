@@ -49,6 +49,13 @@ UserSchema.pre('save', function (next){
     next();
 } );
 
+UserSchema.pre('update', function (next){
+    if (this.password){
+        this.salt = new Buffer(crypto.randomBytes(16).toString('base64'),'base64' );
+        this.password = this.hashPassword(this.password);
+    }
+    next();
+} );
 
 
 UserSchema.methods.hashPassword = function(password){
@@ -62,39 +69,24 @@ UserSchema.methods.authenticate = function(password){
 
 
 
-UserSchema.methods.setPassword = function (password, cb) {
-    if (!password) {
-        return cb(new BadRequestError(options.missingPasswordError));
-    }
 
-    var self = this;
-
-    crypto.randomBytes(options.saltlen, function(err, buf) {
-        if (err) {
-            return cb(err);
-        }
-
-        var salt = buf.toString('hex');
-
-        crypto.pbkdf2(password, salt, options.iterations, options.keylen, function(err, hashRaw) {
-            if (err) {
-                return cb(err);
-            }
-
-            self.set(options.hashField, new Buffer(hashRaw, 'binary').toString('hex'));
-            self.set(options.saltField, salt);
-
-            cb(null, self);
-        });
-    });
+UserSchema.methods.validatePassword = function(password){
+    var hash = crypto.pbkdf2Sync(password, this.salt, 1000, 64).toString('hex');
+    return this.hash === hash;
 };
-
-
 
 // Compile model from schema
 var UserModel       = mongoose.model('User', UserSchema );
 exports.UserModel   = UserModel;
 
+
+exports.updatePassword  = function(user, done){
+    console.log("Update Called");
+    UserModel.findOne({ username: user.username }, function (err, doc){
+        doc.password = user.password;
+        doc.save();
+    });
+};
 
 
 exports.findByUsername = function(username, cb){
@@ -114,9 +106,9 @@ exports.create  = function(user){
     console.log("Create Called");
     console.log(user);
     var newUser = new UserModel(user);
+    
     newUser.save();
 };
-
 
 
 exports.findAll = function(cb){
