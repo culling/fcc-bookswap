@@ -5,12 +5,18 @@
 import React from 'react';
 import {render} from 'react-dom';
 
+//Partials
 import HeaderContainer  from './partials/HeaderContainer.jsx';
+import BooksHeaderContainer  from './partials/BooksHeaderContainer.jsx';
+//User 
 import LoginContainer   from './user/LogInContainer.jsx';
 import SignupContainer  from './user/SignupContainer.jsx';
-/*
-*/
 import ProfileContainer  from './user/ProfileContainer.jsx';
+
+//Books
+import NewBookContainer  from './book/NewBookContainer.jsx';
+
+
 
 class ReactContainer extends React.Component{
 
@@ -146,6 +152,9 @@ class ReactContainer extends React.Component{
                 {(this.state.user.type == "user" ) &&
                 <ProfileContainer user={this.state.user} updateProfileClick={() => this._updateProfileClick.bind(this) } />
                 }
+
+                <BooksHeaderContainer />
+                <NewBookContainer />
             </div>
         )
     }

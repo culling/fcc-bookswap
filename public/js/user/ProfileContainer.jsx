@@ -33,7 +33,7 @@ class ProfileContainer extends React.Component{
         //this.state.firstName = this.state.firstName || this.props.user.firstName;
 
         return(
-        <div id="profile-container" className="div-visible">
+        <div id="profile-container" className="div-hidden">
             <header>Profile</header>
             <form id="profileForm">
                 <input id="username" name="username" type="text" disabled value={this.props.user.username || ""} />

@@ -46,7 +46,7 @@ class HeaderContainer extends React.Component{
     render(){
         return(
             <div>
-                <h1>Free Code Camp - Manage a Book Trading Club</h1>
+                <h3>Free Code Camp - Manage a Book Trading Club</h3>
                 <a href="https://www.freecodecamp.com/challenges/manage-a-book-trading-club">
                     https://www.freecodecamp.com/challenges/manage-a-book-trading-club
                 </a>
@@ -55,8 +55,8 @@ class HeaderContainer extends React.Component{
                     <button className="btn" onClick={this._loginClicked.bind(this)}>Log In</button>
                     <button className="btn" onClick={this.props.logOutClick()}>Log Out</button>
                     <button className="btn" onClick={this._profileClicked.bind(this)}>Profile</button>
+                    <span   className="welcome"> Welcome {this.props.user.username} </span>
                 </div>
-                <div><h5> Welcome {this.props.user.username} </h5></div>
                 
             </div>
         )
