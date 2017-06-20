@@ -27,18 +27,29 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 var Schema = mongoose.Schema;
 
 var BookSchema = new Schema({
-    author: String,
+    authors: Array,
     title: String,
     owner: {type: Schema.Types.ObjectId, ref: "User" },
     thumbnailUrl: String,
-    isbn13: String,
-    isbn10: String
+    ISBN_13: String,
+    ISBN_10: String
 });
 
 // Compile model from schema
 var BookModel       = mongoose.model('Book', BookSchema );
 exports.BookModel   = BookModel;
 
+
+exports.findAll = function(cb){
+    BookModel.find()
+	.populate("owner")
+    .exec(
+        function(err, results){
+            if(err) return handleError(err);
+            cb(results);
+        }
+    );
+};
 
 /*
 // Example object

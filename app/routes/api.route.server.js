@@ -85,8 +85,8 @@ router.get("/user", function(req, res){
 
 //Books
 router.get("/book", function(req, res){
-    console.log("Query : " );
-    console.log( req.query);
+    console.log("Query Called : " );
+    //console.log( req.query);
 
     if(req.query.title){
         books.lookup(req.query.title, function(found){
@@ -97,18 +97,38 @@ router.get("/book", function(req, res){
     }else{
         res.end();
     }
-
 });
 
 router.post("/book", function(req, res){
     var book = req.body ; 
     book.owner = req.user;
     //console.log(book );
-
-
-
+    books.create(book);
     res.write("Sent");
     res.end();
+});
+
+router.get("/library", function(req, res){
+    console.log("Library Route hit");
+    //console.log("Query: " );
+    //example http://localhost/api/library?username=jim
+    //console.log( req.query.username );
+
+    var libraryForUser = req.query.username ;
+    //console.log(libraryForUser);
+
+    books.lookupAll(function(foundBooks){
+        var filteredBooks = foundBooks;
+        if(libraryForUser){
+            filteredBooks = foundBooks.filter(foundBook => {
+            //console.log(foundBook);
+            return foundBook.owner.username == libraryForUser;
+        } );
+        };
+
+        res.write(JSON.stringify(filteredBooks, null, "\t") );
+        res.end();
+    });
 });
 
 module.exports = router;
