@@ -53,7 +53,7 @@ class HeaderContainer extends React.Component{
                 <div className="row">
                     <button className="btn" onClick={this._signUpClicked.bind(this)}>Sign Up</button>
                     <button className="btn" onClick={this._loginClicked.bind(this)}>Log In</button>
-                    <button className="btn" onClick={this.props.logOutClick()}>Log Out</button>
+                    <button className="btn" onClick={ this.props.logOutClick() }>Log Out</button>
                     <button className="btn" onClick={this._profileClicked.bind(this)}>Profile</button>
                     <span   className="welcome"> Welcome {this.props.user.username} </span>
                 </div>

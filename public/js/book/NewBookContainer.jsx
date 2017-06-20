@@ -18,8 +18,6 @@ class NewBookContainer extends React.Component{
         event.preventDefault();
         console.log("Find Book Clicked");
         var bookTitle = jQuery("#title").val();
-
-
         jQuery.ajax({
             method: 'GET',
             url:("/api/book"),
@@ -36,12 +34,23 @@ class NewBookContainer extends React.Component{
                     console.log(filteredBooksArray);
                     this.setState({"foundBooks": filteredBooksArray});
                 }
-
-            
-            }
+           }
         });
+    }
 
 
+    _addNewBook(newBook){
+        //event.preventDefault();
+        console.log("Find Book Clicked");
+        //console.log(JSON.stringify(newBook) );
+        jQuery.ajax({
+            method: 'POST',
+            url:("/api/book"),
+            data: JSON.stringify(newBook),
+            contentType: 'application/json' // for request
+            
+
+        });
 
     }
 
@@ -59,12 +68,14 @@ class NewBookContainer extends React.Component{
                 {this.state.foundBooks.map((foundBook, i )=> {
                     return (
                     <div key={i} className="col l2 m4 s12 ">
+                        <a onClick={()=>this._addNewBook(foundBook)}>
                         {foundBook.volumeInfo.imageLinks &&
                             <img src={foundBook.volumeInfo.imageLinks.smallThumbnail || foundBook.volumeInfo.imageLinks.thumbnail} 
                                 alt={foundBook.volumeInfo.title} 
                                 className="book-smallThumbnail"
                             />
                         }
+                        </a>
                     </div>
                     )
                 }) }

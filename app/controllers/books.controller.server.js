@@ -3,9 +3,10 @@ var https = require("https");
 
 
 exports.lookup = function(title, callback){
-    console.log(escape(title));
+    //console.log(escape(title));
     var hostname = "www.googleapis.com"
     var path = "/books/v1/volumes?q=intitle:" + escape(title);
+    console.log(path);
     https.get({hostname: hostname, path: path},
     function(response){
         var responseBody="";
@@ -13,7 +14,7 @@ exports.lookup = function(title, callback){
         responseBody += data;
         });
         response.on("end", function(){
-            console.log(responseBody);
+            //console.log(responseBody);
             var booksObjectResponseObject = responseBody;
 
             callback(booksObjectResponseObject);

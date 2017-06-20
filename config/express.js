@@ -47,7 +47,7 @@ module.exports  = function(){
     app.use(cookieParser());
     app.use(expressSession({ secret: 'keyboard cat', resave: false, saveUninitialized: false }));
 
-    //Passport    
+    //Passport
     app.use(passport.initialize());
     app.use(passport.session());
     app.use(flash());

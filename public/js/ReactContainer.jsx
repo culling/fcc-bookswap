@@ -146,7 +146,7 @@ class ReactContainer extends React.Component{
         return(
 
             <div>
-                <HeaderContainer  user={this.state.user}  logOutClick={() => this._logOutClick.bind(this) } />
+                <HeaderContainer  user={this.state.user}  logOutClick={ () => this._logOutClick.bind(this) } />
                 <SignupContainer  onClick={()=> this._signupForm.bind(this)}/>
                 <LoginContainer   logInClick={()=> this._loginClick.bind(this) } />  
                 {(this.state.user.type == "user" ) &&

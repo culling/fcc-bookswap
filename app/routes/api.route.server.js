@@ -85,11 +85,13 @@ router.get("/user", function(req, res){
 
 //Books
 router.get("/book", function(req, res){
-    console.log(req.query);
+    console.log("Query : " );
+    console.log( req.query);
 
     if(req.query.title){
         books.lookup(req.query.title, function(found){
-            res.write( found );
+            //res.send(found);
+            res.write( JSON.stringify( JSON.parse(found), null, "\t") );
             res.end();
         });        
     }else{
@@ -98,6 +100,15 @@ router.get("/book", function(req, res){
 
 });
 
+router.post("/book", function(req, res){
+    var book = req.body ; 
+    book.owner = req.user;
+    //console.log(book );
 
+
+
+    res.write("Sent");
+    res.end();
+});
 
 module.exports = router;

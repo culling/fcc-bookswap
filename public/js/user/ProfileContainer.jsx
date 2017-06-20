@@ -43,6 +43,23 @@ class ProfileContainer extends React.Component{
                   defaultValue={this.state.user.lastName  || ""} 
                 />
 
+                <input id="city"  name="city"
+                  type="text"  placeholder="City"
+                  defaultValue={this.state.user.city  || ""} 
+                />
+
+                <input id="state"  name="state"
+                  type="text"  placeholder="State"
+                  defaultValue={this.state.user.state  || ""} 
+                />
+
+                <input id="country"  name="country"
+                  type="text"  placeholder="Country"
+                  defaultValue={this.state.user.country  || ""} 
+                />
+
+
+
             <button type="button" className="btn" onClick={ this.props.updateProfileClick() } >Submit</button>
             </form>
         </div>
