@@ -9,7 +9,8 @@ class LibraryContainer extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            books: []
+            books: [],
+            user: {}
         }
 
     };
@@ -47,11 +48,20 @@ class LibraryContainer extends React.Component{
 
 
     componentWillReceiveProps(newProps){
-        if (this.props.user != newProps.user){
-            this._getLibraryContents(newProps.user);
+        if (this.props.filterUser != newProps.filterUser){
+            this._getLibraryContents(newProps.filterUser);
+            this.setState({filterUser: newProps.filterUser});
         }
     }
 
+    _bookClicked(book){
+        console.log("Book Clicked in the Library");
+        //console.log(book);
+        if(this.props.user && (this.props.user.type == "user" )){
+            console.log(book);
+            //console.log(book.owner)
+        }
+    }
 
     render(){
         return (
@@ -66,7 +76,7 @@ class LibraryContainer extends React.Component{
                 {this.state.books.map((book, i )=> {
                     return (
                     <div key={i} className="col l2 m4 s12 ">
-                        <a onClick={()=> {console.log("Book Clicked in the Library")} }>
+                        <a onClick={()=> this._bookClicked(book) }>
                         {book.thumbnailUrl &&
                             <img src={book.thumbnailUrl} 
                                 alt={book.title} 

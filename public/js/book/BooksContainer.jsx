@@ -44,12 +44,12 @@ class BooksContainer extends React.Component{
             <div id="books-container" className="div-hidden" >
                 <BooksHeaderContainer user={this.props.user} />
                 <div id="allLibrary-container" className="div-visible">
-                    <LibraryContainer key="allLibrary"  user={{type:"all"}} />
+                    <LibraryContainer key="allLibrary"  filterUser={{type:"all"}} user={ this.props.user } />
                 </div>
 
                 {this.props.user &&
                 <div id="myLibrary-container" className="div-hidden" >
-                    <LibraryContainer key="myLibrary"   user={this.props.user}  id="myLibrary"  />
+                    <LibraryContainer key="myLibrary"   filterUser={this.props.user} user={this.props.user}  id="myLibrary"  />
                     <NewBookContainer />
                 </div>
                 }
