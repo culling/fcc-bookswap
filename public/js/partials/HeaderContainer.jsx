@@ -13,49 +13,76 @@ class HeaderContainer extends React.Component{
 
     }
 
+    _hideAllContainers(){
+        jQuery("#signup-container")
+            .add("#login-container")
+            .add("#profile-container")
+            .add("#home-panel")
+            .add("#books-container")
+            .attr("class", "div-hidden");
+    }
+
+
+    _homeClicked(){
+        console.log("signup Clicked");
+        this._hideAllContainers();
+        jQuery("#home-panel")
+            .attr("class", "div-visible");   
+    }
+
     _signUpClicked(){
         console.log("signup Clicked");
+
+        this._hideAllContainers();
+
         jQuery("#signup-container")
-            .toggleClass("div-hidden");
-        jQuery("#login-container")
-            .attr("class", "div-hidden");
-        jQuery("#profile-container")
-            .attr("class", "div-hidden");
+            .attr("class", "div-visible");
+
+        
     }
 
     _loginClicked(){
         console.log("login Clicked");
+
+        this._hideAllContainers();
+        
         jQuery("#login-container")
-            .toggleClass("div-hidden")
-        jQuery("#signup-container")
-            .attr("class", "div-hidden");
-        jQuery("#profile-container")
-            .attr("class", "div-hidden");
+            .attr("class", "div-visible");
+
     }
 
     _profileClicked(){
         console.log("Profile Clicked");
-        jQuery("#signup-container")
-            .attr("class", "div-hidden");
-        jQuery("#login-container")
-            .attr("class", "div-hidden");
+
+        this._hideAllContainers();
+        
         jQuery("#profile-container")
-            .toggleClass("div-hidden");
+            .attr("class", "div-visible");
+
+    }
+
+    _booksClicked(){
+        console.log("Books Clicked");
+
+        this._hideAllContainers();        
+
+        jQuery("#books-container")
+            .attr("class", "div-visible");
+        
     }
 
     render(){
         return(
             <div>
-                <h6>Free Code Camp - Manage a Book Trading Club</h6>
-                <a href="https://www.freecodecamp.com/challenges/manage-a-book-trading-club">
-                    https://www.freecodecamp.com/challenges/manage-a-book-trading-club
-                </a>
                 <div className="row">
-                    <button className="btn" onClick={this._signUpClicked.bind(this)}>Sign Up</button>
-                    <button className="btn" onClick={this._loginClicked.bind(this)}>Log In</button>
+                    <button className="btn" onClick={ this._homeClicked.bind(this)}>Home</button>
+                    <button className="btn" onClick={ this._signUpClicked.bind(this)}>Sign Up</button>
+                    <button className="btn" onClick={ this._loginClicked.bind(this)}>Log In</button>
                     <button className="btn" onClick={ this.props.logOutClick() }>Log Out</button>
-                    <button className="btn" onClick={this._profileClicked.bind(this)}>Profile</button>
-                    <span   className="welcome"> Welcome {this.props.user.username} </span>
+                    <button className="btn" onClick={ this._profileClicked.bind(this)}>Profile</button>
+                    <button className="btn" onClick={ this._booksClicked.bind(this) }>Books</button>
+                    
+                    <span   className="logo"> Welcome {this.props.user.username} </span>
                 </div>
                 
             </div>

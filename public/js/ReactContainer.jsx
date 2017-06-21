@@ -6,22 +6,27 @@ import React from 'react';
 import {render} from 'react-dom';
 
 //Partials
-import HeaderContainer  from './partials/HeaderContainer.jsx';
-import BooksHeaderContainer  from './partials/BooksHeaderContainer.jsx';
-//User 
-import LoginContainer   from './user/LogInContainer.jsx';
-import SignupContainer  from './user/SignupContainer.jsx';
-import ProfileContainer  from './user/ProfileContainer.jsx';
+import HeaderContainer      from './partials/HeaderContainer.jsx';
+import HomePanel            from './partials/HomePanel.jsx';
+//import BooksHeaderContainer from './partials/BooksHeaderContainer.jsx';
+
+
+//User
+import LoginContainer       from './user/LogInContainer.jsx';
+import SignupContainer      from './user/SignupContainer.jsx';
+import ProfileContainer     from './user/ProfileContainer.jsx';
+
 
 //Books
-import NewBookContainer     from './book/NewBookContainer.jsx';
-import LibraryContainer     from './book/LibraryContainer.jsx';
+import BooksContainer       from './book/BooksContainer.jsx';
+//import NewBookContainer     from './book/NewBookContainer.jsx';
+//import LibraryContainer     from './book/LibraryContainer.jsx';
 
 
 class ReactContainer extends React.Component{
 
     constructor(props){
-        super();
+        super(props);
 
         this.state = {
             user:[]
@@ -91,6 +96,8 @@ class ReactContainer extends React.Component{
     };
 
     _logOutClick(){
+        console.log("logout Clicked");
+
         let _this = this;
         jQuery.ajax({
             type: "GET",
@@ -121,6 +128,14 @@ class ReactContainer extends React.Component{
         });        
     }
 
+    _hideAllContainers(){
+        jQuery("#signup-container")
+            .add("#login-container")
+            .add("#profile-container")
+            .add("#home-panel")
+            .add("#books-container")
+            .attr("class", "div-hidden");
+    }
 
     _getUser(){
         //User
@@ -132,12 +147,13 @@ class ReactContainer extends React.Component{
                 //console.log("User");
                 //console.log(user);
                 this.setState({ user: user });
+
+                this._hideAllContainers();
+                jQuery("#home-panel")
+                    .attr("class", "div-visible");
             }
+            
         });
-        jQuery("#login-container")
-            .attr("class", "div-hidden");
-        jQuery("#signup-container")
-            .attr("class", "div-hidden");
     };
 
 
@@ -147,15 +163,19 @@ class ReactContainer extends React.Component{
 
             <div>
                 <HeaderContainer  user={this.state.user}  logOutClick={ () => this._logOutClick.bind(this) } />
+                <HomePanel user={this.state.user} />
+
                 <SignupContainer  onClick={()=> this._signupForm.bind(this)}/>
                 <LoginContainer   logInClick={()=> this._loginClick.bind(this) } />  
+
+
                 {(this.state.user.type == "user" ) &&
-                <ProfileContainer user={this.state.user} updateProfileClick={() => this._updateProfileClick.bind(this) } />
+                    <ProfileContainer user={this.state.user} updateProfileClick={() => this._updateProfileClick.bind(this) } />
                 }
 
-                <BooksHeaderContainer />
-                <LibraryContainer />
-                <NewBookContainer />
+                <BooksContainer user={this.state.user} />
+
+
             </div>
         )
     }

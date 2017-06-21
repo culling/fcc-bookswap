@@ -76,8 +76,8 @@ router.get("/user", function(req, res){
         });
     }else{
         var user = {
-            type: "ip",
-            username: req.ip
+            type: "ip"
+            //,username: req.ip
         }
         res.send(user);
     }

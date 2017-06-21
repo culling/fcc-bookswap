@@ -60,6 +60,7 @@ exports.lookupAll = function(done){
 
     mongoExport.books.findAll(function(foundBooks){
         //console.log(foundBooks);
+        
         done(foundBooks);
     });
 

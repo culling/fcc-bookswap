@@ -9,57 +9,64 @@ class LibraryContainer extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            books: [],
-            user: {}
+            books: []
         }
 
     };
 
-    _getLibraryContents(){
-        
+    _getLibraryContents(user){        
         console.log("Get Library Contents");
+        this.setState({"books":[]});
         
+        if(user.type != "user"){
+            user.username = undefined;
+        }
+
         jQuery.ajax({
             method: 'GET',
             url:("/api/library"),
-            data: {"user": this.props.user},
+            data: {"username": user.username},
             success: (rawResult)=>{
                 //console.log(rawResult);
-
                 var booksArray = JSON.parse(rawResult);
                 if (booksArray.length > 0 ){
                     console.log(booksArray );
                     this.setState({"books": booksArray});
                 }
-            }
+            },
+            dataType: "text",
+            contentType : "application/json"
+
         });
     }
 
     componentWillMount(){
         //Set the user
-        if(this.props.user && this.props.user.username){
-            this.setState({user: this.props.user.username});
-        }else{
-            this.setState({user: "jim"});
-        }
-
-
-        this._getLibraryContents();
+        this._getLibraryContents(this.props.user);
     }
+
+
+    componentWillReceiveProps(newProps){
+        if (this.props.user != newProps.user){
+            this._getLibraryContents(newProps.user);
+        }
+    }
+
 
     render(){
         return (
         <div>
-            <header>{ (this.state.user).toUpperCase() }'s Library</header>
+            {this.props.user.username &&
+                <header>{ (this.props.user.username).toUpperCase() }'s Library</header>
+            }
 
-            {(this.state.books.length > 0) && 
-            <div className="row found-books" >
 
-                {console.log(this.state.books)}
+            <div className="row found-books">
+
                 {this.state.books.map((book, i )=> {
                     return (
                     <div key={i} className="col l2 m4 s12 ">
-                        <a onClick={console.log("Book Clicked in the Library") }>
+                        <a onClick={()=> {console.log("Book Clicked in the Library")} }>
                         {book.thumbnailUrl &&
                             <img src={book.thumbnailUrl} 
                                 alt={book.title} 
@@ -72,7 +79,6 @@ class LibraryContainer extends React.Component{
                 })}
 
             </div>
-            }
 
         </div>
         )
