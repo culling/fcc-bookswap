@@ -14,8 +14,8 @@ import SignupContainer  from './user/SignupContainer.jsx';
 import ProfileContainer  from './user/ProfileContainer.jsx';
 
 //Books
-import NewBookContainer  from './book/NewBookContainer.jsx';
-
+import NewBookContainer     from './book/NewBookContainer.jsx';
+import LibraryContainer     from './book/LibraryContainer.jsx';
 
 
 class ReactContainer extends React.Component{
@@ -154,6 +154,7 @@ class ReactContainer extends React.Component{
                 }
 
                 <BooksHeaderContainer />
+                <LibraryContainer />
                 <NewBookContainer />
             </div>
         )
