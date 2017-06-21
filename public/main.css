@@ -17,3 +17,11 @@
   height: 180px;
   width:  auto;
 }
+
+.trade-requested{
+    background-image: 
+    linear-gradient(
+      rgba(0, 0, 0, 0.5),
+      rgba(0, 0, 0, 0.5)
+    )
+}

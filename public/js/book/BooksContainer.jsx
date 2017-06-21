@@ -42,9 +42,18 @@ class BooksContainer extends React.Component{
     render(){
         return(
             <div id="books-container" className="div-hidden" >
-                <BooksHeaderContainer />
-                <LibraryContainer user={this.props.user} />
-                <NewBookContainer />
+                <BooksHeaderContainer user={this.props.user} />
+                <div id="allLibrary-container" className="div-visible">
+                    <LibraryContainer key="allLibrary"  user={{type:"all"}} />
+                </div>
+
+                {this.props.user &&
+                <div id="myLibrary-container" className="div-hidden" >
+                    <LibraryContainer key="myLibrary"   user={this.props.user}  id="myLibrary"  />
+                    <NewBookContainer />
+                </div>
+                }
+
             </div>
         )
     }
