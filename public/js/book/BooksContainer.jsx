@@ -54,7 +54,9 @@ class BooksContainer extends React.Component{
                 </div>
                 }
 
-                <TradesContainer />
+                <div id="trades-container" className="div-hidden">
+                    <TradesContainer user={this.props.user} />
+                </div>
 
 
             </div>

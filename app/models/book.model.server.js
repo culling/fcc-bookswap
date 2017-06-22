@@ -53,6 +53,12 @@ exports.findAll = function(cb){
     );
 };
 
+exports.updateBook = function(book){
+	BookModel.findOne({ _id: book._id }, function (err, doc){
+		doc.save();
+	});
+}
+
 /*
 // Example object
 		{

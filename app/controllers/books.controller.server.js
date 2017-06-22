@@ -63,6 +63,26 @@ exports.lookupAll = function(done){
         
         done(foundBooks);
     });
+}
 
- 
+exports.update = function(book, done){
+    console.log("Book - Update Called");
+    console.log(book);
+
+    mongoExport.books.BookModel.update({_id: book._id}, 
+        book,
+        function(err, updatedBook){
+            if (err){
+                //return next (err);
+                done(err)
+            } else {
+                console.log("Updated Book");
+                console.log(updatedBook);
+                done(null, updatedBook);
+                //res.write("finished");
+                //res.end();
+            }
+        }
+    )
+
 }

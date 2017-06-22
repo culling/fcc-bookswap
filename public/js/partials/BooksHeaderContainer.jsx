@@ -21,7 +21,6 @@ class BooksHeaderContainer extends React.Component{
     }
 
     _myLibraryClicked(){
-        console.log("new Book Clicked");
         this._hideAllContainers();
         jQuery("#myLibrary-container")
            .attr("class", "div-visible");
@@ -29,14 +28,12 @@ class BooksHeaderContainer extends React.Component{
 
 
     _allLibraryClicked(){
-        console.log("new Book Clicked");
         this._hideAllContainers();
         jQuery("#allLibrary-container")
            .attr("class", "div-visible");
     }
 
     _tradesClicked(){
-        console.log("new Book Clicked");
         this._hideAllContainers();
         jQuery("#trades-container")
            .attr("class", "div-visible");
@@ -54,7 +51,6 @@ class BooksHeaderContainer extends React.Component{
                         <button className="btn" onClick={this._tradesClicked.bind(this)}>Trades</button>
                     </div>
                     }
-                    {/*<button className="btn" onClick={this._newBookClicked.bind(this)}>New Book</button>*/}
     
                 </div>
         )

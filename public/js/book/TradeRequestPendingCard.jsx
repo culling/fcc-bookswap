@@ -5,13 +5,14 @@
 import React from 'react';
 import {render} from 'react-dom';
 
-class TradeRequestCard extends React.Component{
+class TradeRequestPendingCard extends React.Component{
     constructor(props){
         super(props);
         this.state = {
             books: [],
             user: this.props.user,
-            tradeRequestBook: this.props.tradeRequestBook
+            tradeRequestBook: this.props.tradeRequestBook,
+            userRequestingTrade: this.props.userRequestingTrade
         }
     };
 
@@ -65,7 +66,8 @@ class TradeRequestCard extends React.Component{
                     </div>
                     <div className="card-stacked" id="tradeRequest-card-text">
                         <div className="card-content" >
-                            <div><b>Submit a Trade Request</b></div>
+                            <div> </div>
+                            <div> <b>User Requesting Trade:</b> {this.props.userRequestingTrade.username }</div>
                             <div><b>{this.state.tradeRequestBook.title}</b></div>
                             <div>Authors</div>
                             {this.state.tradeRequestBook.authors.map((author, i) =>{return <li key={i} >{author}</li>} ) }
@@ -73,7 +75,7 @@ class TradeRequestCard extends React.Component{
                         <div className="card-action">
                             <a href="#" onClick={() => this._promptForTradeRequestYesClick(this.state.tradeRequestBook)}> Yes </a>
                             <a href="#" onClick={() => this._promptForTradeRequestNoClick(this.state.tradeRequestBook)} > No  </a>
-                        </div>                        
+                        </div>
                     </div>
                 </div>
             </div>
@@ -82,4 +84,4 @@ class TradeRequestCard extends React.Component{
 }
 
 
-export default TradeRequestCard;
+export default TradeRequestPendingCard;

@@ -143,7 +143,11 @@ router.post("/trade", function(req, res){
     console.log(book);
 
     //book.usersRequestingTrade.push( usersRequestingTrade );
-
+    books.update(book,function(err, updatedBook){
+        if(err){ console.error(err)}
+        res.write("update finished");
+        res.end();
+    });
 
 
 });

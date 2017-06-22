@@ -84,7 +84,7 @@ class LibraryContainer extends React.Component{
         return (
         <div>
             {this.props.filterUser.username &&
-                <header>{ (this.props.user.username).toUpperCase() }'s Library</header>
+                <b> My Books</b>
             }
 
             {this.state.tradeRequestBook &&
