@@ -10,7 +10,8 @@ class LibraryContainer extends React.Component{
         super(props);
         this.state = {
             books: [],
-            user: {}
+            user: {},
+            tradeRequestBook: null
         }
 
     };
@@ -54,22 +55,66 @@ class LibraryContainer extends React.Component{
         }
     }
 
+    _promptForTradeRequest(book){
+        this.setState({tradeRequestBook: book});
+    }
+
+    _promptForTradeRequestYesClick(book){
+        console.log("promptForTradeRequestYesClick");
+    }
+
+    _promptForTradeRequestNoClick(book){
+        console.log("promptForTradeRequestNoClick");
+    }
+    
+
     _bookClicked(book){
         console.log("Book Clicked in the Library");
         //console.log(book);
         if(this.props.user && (this.props.user.type == "user" )){
             console.log(book);
-            //console.log(book.owner)
+            if(book.owner.username === this.props.user.username ){
+                console.log("book owned by user");
+            }else{
+                //window.confirm("Want to submit a trade request?");
+                this._promptForTradeRequest(book);
+            }
         }
     }
 
     render(){
         return (
         <div>
-            {this.props.user.username &&
+            {this.props.filterUser.username &&
                 <header>{ (this.props.user.username).toUpperCase() }'s Library</header>
             }
 
+            {this.state.tradeRequestBook &&
+            <div id="tradeRequest-card" className="card">
+                <div className="row">
+                    <div className="col s3">
+                        <img src={this.state.tradeRequestBook.thumbnailUrl} 
+                            alt={this.state.tradeRequestBook.title} 
+                            className="book-smallThumbnail"
+                        />
+                    </div>
+                    <div className="col s9 card-content" id="tradeRequest-card-text">
+                        <br />
+                        <div id="tradeRequest-card-heading" ><b>Submit a Trade Request</b> </div>
+                        <br />
+                        
+
+                        <div className="row"><b>{this.state.tradeRequestBook.title}</b></div>
+                        Authors <br />
+                        {this.state.tradeRequestBook.authors.map((author, i) =>{return <li key={i} >{author}</li>} ) }
+
+                        <button className="btn" onClick={() => this._promptForTradeRequestYesClick(this.state.tradeRequestBook)}> Yes </button>
+                        <button className="btn" onClick={() => this._promptForTradeRequestNoClick(this.state.tradeRequestBook)} > No  </button>
+                        <br />
+                    </div>
+                </div>
+            </div>
+            }
 
             <div className="row found-books">
 
