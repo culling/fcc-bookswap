@@ -32,7 +32,9 @@ var BookSchema = new Schema({
     owner: {type: Schema.Types.ObjectId, ref: "User" },
     thumbnailUrl: String,
     ISBN_13: String,
-    ISBN_10: String
+    ISBN_10: String,
+	usersRequestingTrade: Array
+
 });
 
 // Compile model from schema

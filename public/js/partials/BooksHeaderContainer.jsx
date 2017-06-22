@@ -13,30 +13,34 @@ class BooksHeaderContainer extends React.Component{
 
     }
 
-    _newBookClicked(){
-        console.log("new Book Clicked");
-        jQuery("#newbook-container")
-            .toggleClass("div-hidden")
-
+    _hideAllContainers(){
+        jQuery("#allLibrary-container")
+            .add("#myLibrary-container")
+            .add("#trades-container")
+            .attr("class", "div-hidden");
     }
 
     _myLibraryClicked(){
         console.log("new Book Clicked");
-        jQuery("#allLibrary-container")
-            .attr("class", "div-hidden");
-
+        this._hideAllContainers();
         jQuery("#myLibrary-container")
-            .toggleClass("div-hidden");
+           .attr("class", "div-visible");
     }
 
 
     _allLibraryClicked(){
         console.log("new Book Clicked");
-        jQuery("#myLibrary-container")
-            .attr("class", "div-hidden");
-
+        this._hideAllContainers();
         jQuery("#allLibrary-container")
-            .toggleClass("div-hidden");
+           .attr("class", "div-visible");
+    }
+
+    _tradesClicked(){
+        console.log("new Book Clicked");
+        this._hideAllContainers();
+        jQuery("#trades-container")
+           .attr("class", "div-visible");
+        
     }
 
 
@@ -47,6 +51,7 @@ class BooksHeaderContainer extends React.Component{
                     <div id="user-library-buttons"> 
                         <button className="btn" onClick={this._myLibraryClicked.bind(this)}>My Library</button>
                         <button className="btn" onClick={this._allLibraryClicked.bind(this)}>Whole Library</button>
+                        <button className="btn" onClick={this._tradesClicked.bind(this)}>Trades</button>
                     </div>
                     }
                     {/*<button className="btn" onClick={this._newBookClicked.bind(this)}>New Book</button>*/}

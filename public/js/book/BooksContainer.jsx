@@ -10,7 +10,7 @@ import BooksHeaderContainer  from './../partials/BooksHeaderContainer.jsx';
 //Books
 import NewBookContainer     from './../book/NewBookContainer.jsx';
 import LibraryContainer     from './../book/LibraryContainer.jsx';
-
+import TradesContainer      from './../book/TradesContainer.jsx';
 
 class BooksContainer extends React.Component{
     constructor(props){
@@ -53,6 +53,9 @@ class BooksContainer extends React.Component{
                     <NewBookContainer />
                 </div>
                 }
+
+                <TradesContainer />
+
 
             </div>
         )

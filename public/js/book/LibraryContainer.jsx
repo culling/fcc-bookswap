@@ -88,7 +88,7 @@ class LibraryContainer extends React.Component{
             }
 
             {this.state.tradeRequestBook &&
-                <TradeRequestCard tradeRequestBook={this.state.tradeRequestBook} />
+                <TradeRequestCard tradeRequestBook={this.state.tradeRequestBook} user={this.props.user} />
             }
 
             <div className="row found-books">

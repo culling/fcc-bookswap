@@ -10,7 +10,7 @@ class TradeRequestCard extends React.Component{
         super(props);
         this.state = {
             books: [],
-            user: {},
+            user: this.props.user,
             tradeRequestBook: this.props.tradeRequestBook
         }
     };
@@ -31,7 +31,16 @@ class TradeRequestCard extends React.Component{
     _promptForTradeRequestYesClick(book){
         console.log("promptForTradeRequestYesClick");
 
-        
+        book.usersRequestingTrade.push( this.props.user );
+
+        jQuery.ajax({
+            method: 'POST',
+            url:("/api/trade"),
+            data: JSON.stringify(book),
+            contentType: 'application/json' // for request
+        });
+
+
 
         jQuery("#tradeRequest-card")
             .attr("class", "div-hidden");

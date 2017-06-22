@@ -131,4 +131,22 @@ router.get("/library", function(req, res){
     });
 });
 
+router.post("/trade", function(req, res){
+    console.log("API/trade hit")
+
+    var book = req.body;
+    //var userRequestingTrade = req.user;
+
+    //console.log("From User");
+    //console.log(userRequestingTrade );
+    console.log("Book");
+    console.log(book);
+
+    //book.usersRequestingTrade.push( usersRequestingTrade );
+
+
+
+});
+
+
 module.exports = router;
