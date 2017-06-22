@@ -12,7 +12,8 @@ class TradesContainer extends React.Component{
         this.state = {
             user: this.props.user,
             books: [],
-            myTradeRequests:[]
+            myTradeRequests:[],
+            otherTradeRequests:[]
         }
     }
 
@@ -56,13 +57,19 @@ class TradesContainer extends React.Component{
                     var myTradeRequests = booksArray.filter(book=>{
                         return (this.props.user && (book.owner.username == this.props.user.username) && (book.usersRequestingTrade.length > 0 ))
                     });
-                    console.log("My Trades");
-                    console.log(myTradeRequests);
                     this.setState({myTradeRequests: myTradeRequests});
 
                     var otherTradeRequests = booksArray.filter(book=>{
-                        return (this.props.user && (book.owner.username == this.props.user.username) && (book.usersRequestingTrade.length > 0 ))
+                        var usersRequestingTrade = (book.usersRequestingTrade.length > 0 );
+                        var userLoggedIn = (typeof this.props.user.username !== "undefined");
+                        var thisUserRequestingTrade = book.usersRequestingTrade.filter(user =>{
+                            return (user.username == this.props.user.username);
+                        });
+
+                        return (usersRequestingTrade && userLoggedIn && (thisUserRequestingTrade.length > 0) )
                     });
+                    this.setState({otherTradeRequests: otherTradeRequests});
+
 
                 }
             },
@@ -94,6 +101,14 @@ class TradesContainer extends React.Component{
 
                 <div>
                     <b>Waiting for Approval</b>
+                    {this.state.otherTradeRequests.map((book, i )=>{
+                        return(
+                            <div key={i}>
+                                <TradeRequestPendingCard tradeRequestBook={book} userRequestingTrade={this.props.user} user={this.props.user} />
+                            </div>
+                        )
+                    } )}
+
                 </div>
                 
             </div>
