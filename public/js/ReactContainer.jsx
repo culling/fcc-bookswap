@@ -30,7 +30,7 @@ class ReactContainer extends React.Component{
 
         this.state = {
             user:[],
-            activeContainer: "home-panel"
+            activeContainer: "#home-panel"
         }
 
         //Binding to this for functions
@@ -80,6 +80,8 @@ class ReactContainer extends React.Component{
 
     _loginClick(){
         let _this = this;
+        this.setState({activeContainer: "#login-container"});
+
         var formDataSerializedArray = jQuery("#loginForm").serializeArray();
         var formDataObject = this._objectifyForm(formDataSerializedArray);
         jQuery.ajax({
@@ -157,10 +159,13 @@ class ReactContainer extends React.Component{
 
 
                 //Active Container to switch away from sign in
-                this.state.activeContainer()
-                this._hideAllContainers();
-                jQuery("#home-panel")
-                    .attr("class", "div-visible");
+                // Work in progress
+                if (this.state.activeContainer == "#login-container"){
+                    this.setState({activeContainer: "#home-panel"});
+                    this._hideAllContainers();
+                    jQuery("#home-panel")
+                        .attr("class", "div-visible");
+                    }
             }
             
         });

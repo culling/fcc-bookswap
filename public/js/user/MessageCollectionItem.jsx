@@ -9,6 +9,8 @@ class MessageCollectionItem extends React.Component{
         }
     };
 
+
+
     _dismissMessage(message){
         console.log("Dismiss Message Clicked");
         var newStateDiff = {
@@ -21,6 +23,9 @@ class MessageCollectionItem extends React.Component{
             data: JSON.stringify( newStateDiff ),
             success: function(){
                 console.log("Delete message sent to db");
+
+                //
+                socket.emit('new state', {message: "deleted message"});
             },
             dataType: "text",
             contentType : "application/json"
