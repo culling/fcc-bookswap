@@ -21,6 +21,10 @@
     "chai": "^4.0.2",
     "mocha": "^3.4.2"
   },
+    "engines":{
+      "node": "6.9.3"      
+    }
+  ,
   "dependencies": {
     "babel-core": "^6.25.0",
     "babel-loader": "^7.0.0",
