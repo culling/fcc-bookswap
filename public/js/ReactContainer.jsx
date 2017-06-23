@@ -47,7 +47,7 @@ class ReactContainer extends React.Component{
             console.log("new state found");
             //this.setState(newState);
             this._getUser();
-        }.bind(this));        
+        }.bind(this));
 
     }
 

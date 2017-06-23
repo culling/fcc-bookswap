@@ -14,6 +14,9 @@ class TradeRequestPendingCard extends React.Component{
             tradeRequestBook: this.props.tradeRequestBook,
             userRequestingTrade: this.props.userRequestingTrade
         }
+
+        //Binding to this for functions
+        this._sendUserMessage   = this._sendUserMessage.bind(this);
     };
 
 
@@ -26,21 +29,63 @@ class TradeRequestPendingCard extends React.Component{
         }
     }
 
+    
+    _sendUserMessage(newStateDiff) {
+        this.sendUserMessageToDB(newStateDiff);
+        // 2. put diffs onto the websocket
+        this.postToSocket(newStateDiff);
+
+    }
+
+    postToSocket(newStateDiff) {
+        socket.emit('new state', newStateDiff);
+    }
+
+    sendUserMessageToDB(newStateDiff) {
+        jQuery.ajax({
+            type: "POST",
+            url: "/api/users/messages",
+            data: JSON.stringify( newStateDiff ),
+            success: function(){
+                console.log("message sent to db");
+            },
+            dataType: "text",
+            contentType : "application/json"
+        });        
+
+        console.log(newStateDiff);
+        console.log("Save to DB called");
+    }
+    //End _sendUserMessage
+
 
     _promptForTradeRequestYesClick(book){
         console.log("promptForTradeRequestYesClick");
 
-        book.owner = ( this.props.userRequestingTrade );
+
+        book.owner = this.props.userRequestingTrade ;
         book.usersRequestingTrade = [];
+
+        //Message stuff
+        let _this = this;
+        var successMessage = {
+            user: this.props.userRequestingTrade,
+            message: "Trade request accepted for - " + book.title
+        }
 
         jQuery.ajax({
             method: 'POST',
             url:("/api/trade"),
             data: JSON.stringify(book),
-            contentType: 'application/json' // for request
+            contentType: 'application/json', // for request
+            dataType:"text", // for response
+            success: function(){
+                console.log("Trade request accepted");                
+                jQuery("#tradeRequest-card")
+                    .attr("class", "div-hidden");
+                _this._sendUserMessage(successMessage);
+            }
         });
-        jQuery("#tradeRequest-card")
-            .attr("class", "div-hidden");
     }
 
 
@@ -50,11 +95,27 @@ class TradeRequestPendingCard extends React.Component{
             return (userRequestingTrade.username !== user.username);
         });
 
+        
+        //Message stuff
+        let _this = this;
+        var cancelMessage = {
+            user: this.props.userRequestingTrade,
+            message: "Trade request cancelled for - " + book.title
+        }
+
+
         jQuery.ajax({
             method: 'POST',
             url:("/api/trade"),
             data: JSON.stringify(book),
-            contentType: 'application/json' // for request
+            contentType: 'application/json', // for request
+            dataType: "text", 
+            success: function(){
+                console.log("Trade request cancelled");
+                jQuery("#tradeRequest-card")
+                    .attr("class", "div-hidden");
+                _this._sendUserMessage( cancelMessage );
+            }
         });
     }
 
@@ -71,7 +132,7 @@ class TradeRequestPendingCard extends React.Component{
         jQuery("#tradeRequest-card")
             .attr("class", "div-hidden");
     }
-    
+
 
     render(){
         return (
