@@ -23,9 +23,6 @@ class BooksContainer extends React.Component{
 
     };
 
-    componentWillMount(){
-
-    };
 
     componentWillReceiveProps(){
         this.setState({user: this.props.user})

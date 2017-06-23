@@ -72,7 +72,8 @@ class LibraryContainer extends React.Component{
         if(this.props.user && (this.props.user.type == "user" )){
             console.log(book);
             if(book.owner.username === this.props.user.username ){
-                console.log("book owned by user");
+                //console.log("book owned by user");
+                alert("This book is in your Library already");
             }else{
                 //window.confirm("Want to submit a trade request?");
                 this._promptForTradeRequest(book);
@@ -86,6 +87,9 @@ class LibraryContainer extends React.Component{
             {this.props.filterUser.username &&
                 <b> My Books</b>
             }
+            {this.props.filterUser.type == "all" &&
+                <b> Whole Library </b>
+            }
 
             {this.state.tradeRequestBook &&
                 <TradeRequestCard tradeRequestBook={this.state.tradeRequestBook} user={this.props.user} />
@@ -96,7 +100,7 @@ class LibraryContainer extends React.Component{
                 {this.state.books.map((book, i )=> {
                     return (
                     <div key={i} className="col l2 m4 s12 ">
-                        <a onClick={()=> this._bookClicked(book) }>
+                        <a href="#" onClick={()=> this._bookClicked(book) }>
                         {book.thumbnailUrl &&
                             <img src={book.thumbnailUrl} 
                                 alt={book.title} 

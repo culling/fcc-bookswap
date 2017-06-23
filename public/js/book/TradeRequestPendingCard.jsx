@@ -45,7 +45,6 @@ class TradeRequestPendingCard extends React.Component{
 
 
     _cancelTradeRequestFromUser(book, user){
-        
         //book.owner = ( this.props.userRequestingTrade );
         book.usersRequestingTrade = book.usersRequestingTrade.filter(userRequestingTrade =>{
             return (userRequestingTrade.username !== user.username);
@@ -57,8 +56,6 @@ class TradeRequestPendingCard extends React.Component{
             data: JSON.stringify(book),
             contentType: 'application/json' // for request
         });
-
-
     }
 
     _promptForTradeRequestNoClick(book){

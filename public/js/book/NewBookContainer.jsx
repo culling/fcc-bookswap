@@ -12,6 +12,10 @@ class NewBookContainer extends React.Component{
             foundBooks: []
 
         }
+
+        //Binding to this for functions
+        this._addNewBook        = this._addNewBook.bind(this);
+
     };
 
     _findBookClicked(event){
@@ -39,18 +43,27 @@ class NewBookContainer extends React.Component{
     }
 
 
+
     _addNewBook(newBook){
         //event.preventDefault();
+        let _this = this;
+
         console.log("Find Book Clicked");
         //console.log(JSON.stringify(newBook) );
+
         jQuery.ajax({
             method: 'POST',
             url:("/api/book"),
             data: JSON.stringify(newBook),
-            contentType: 'application/json' // for request
-            
-
+            contentType: 'application/json', // for request
+            dataType: 'text',
+            success: function(){
+                jQuery("#title")
+                    .val("");
+                _this.setState({foundBooks: []});
+            }
         });
+
 
     }
 

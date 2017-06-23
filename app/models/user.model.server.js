@@ -41,7 +41,8 @@ var UserSchema = new Schema({
     type                : String,
     city                : String,
     state               : String,
-    country             : String
+    country             : String,
+    messages            : Array
 });
 
 UserSchema.pre('save', function (next){

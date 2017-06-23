@@ -1,6 +1,11 @@
 import React from 'react';
 import {render} from 'react-dom';
 
+
+//Messages Container
+import MessagesContainer    from './../user/MessagesContainer.jsx';
+
+
 class HeaderContainer extends React.Component{
     constructor(props){
         super();
@@ -82,7 +87,7 @@ class HeaderContainer extends React.Component{
                     <button className="btn" onClick={ this._profileClicked.bind(this)}>Profile</button>
                     <button className="btn" onClick={ this._booksClicked.bind(this) }>Books</button>
                     
-                    <span   className="logo"> Welcome {this.props.user.username} </span>
+                    <MessagesContainer user={this.props.user} />
                 </div>
                 
             </div>
