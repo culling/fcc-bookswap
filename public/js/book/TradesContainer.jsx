@@ -91,7 +91,7 @@ class TradesContainer extends React.Component{
                             <div key={i}>
                                 {book.usersRequestingTrade.map((userRequestingTrade, j ) =>{
                                     return (<div key={j}>
-                                    <TradeRequestPendingCard tradeRequestBook={book} userRequestingTrade={userRequestingTrade} />
+                                    <TradeRequestPendingCard tradeRequestBook={book} userRequestingTrade={userRequestingTrade} user={this.props.user} />
                                     </div>)
                                 } ) }
                             </div>

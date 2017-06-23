@@ -30,7 +30,26 @@ class TradeRequestPendingCard extends React.Component{
     _promptForTradeRequestYesClick(book){
         console.log("promptForTradeRequestYesClick");
 
-        book.usersRequestingTrade.push( this.props.user );
+        book.owner = ( this.props.userRequestingTrade );
+        book.usersRequestingTrade = [];
+
+        jQuery.ajax({
+            method: 'POST',
+            url:("/api/trade"),
+            data: JSON.stringify(book),
+            contentType: 'application/json' // for request
+        });
+        jQuery("#tradeRequest-card")
+            .attr("class", "div-hidden");
+    }
+
+
+    _cancelTradeRequestFromUser(book, user){
+        
+        //book.owner = ( this.props.userRequestingTrade );
+        book.usersRequestingTrade = book.usersRequestingTrade.filter(userRequestingTrade =>{
+            return (userRequestingTrade.username !== user.username);
+        });
 
         jQuery.ajax({
             method: 'POST',
@@ -40,17 +59,20 @@ class TradeRequestPendingCard extends React.Component{
         });
 
 
-
-        jQuery("#tradeRequest-card")
-            .attr("class", "div-hidden");
-
     }
 
     _promptForTradeRequestNoClick(book){
         console.log("promptForTradeRequestNoClick");
+        this._cancelTradeRequestFromUser(book, this.props.userRequestingTrade);
         jQuery("#tradeRequest-card")
             .attr("class", "div-hidden");
+    }
 
+    _promptForTradeRequestCancelClick(book){
+        console.log("promptForTradeRequestCancelClick");
+        this._cancelTradeRequestFromUser(book, this.props.user );
+        jQuery("#tradeRequest-card")
+            .attr("class", "div-hidden");
     }
     
 
@@ -72,10 +94,18 @@ class TradeRequestPendingCard extends React.Component{
                             <div>Authors</div>
                             {this.state.tradeRequestBook.authors.map((author, i) =>{return <li key={i} >{author}</li>} ) }
                         </div>
+                        { (this.props.user && (this.props.userRequestingTrade.username !== this.props.user.username)) &&
                         <div className="card-action">
                             <a href="#" onClick={() => this._promptForTradeRequestYesClick(this.state.tradeRequestBook)}> Yes </a>
                             <a href="#" onClick={() => this._promptForTradeRequestNoClick(this.state.tradeRequestBook)} > No  </a>
                         </div>
+                        }
+                        { (this.props.user && (this.props.userRequestingTrade.username === this.props.user.username)) &&
+                        <div className="card-action">
+                            <a href="#" onClick={() => this._promptForTradeRequestCancelClick(this.state.tradeRequestBook)}> Cancel </a>
+                        </div>
+                        }
+
                     </div>
                 </div>
             </div>
