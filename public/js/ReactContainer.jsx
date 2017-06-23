@@ -29,7 +29,8 @@ class ReactContainer extends React.Component{
         super(props);
 
         this.state = {
-            user:[]
+            user:[],
+            activeContainer: "home-panel"
         }
 
         //Binding to this for functions
@@ -42,7 +43,13 @@ class ReactContainer extends React.Component{
 
     componentWillMount(){
         this._getUser.bind(this);
-    };
+        socket.on('new state', function(newState) {
+            console.log("new state found");
+            //this.setState(newState);
+            this._getUser();
+        }.bind(this));        
+
+    }
 
 
     _objectifyForm(formArray) {//serialize data function
@@ -148,6 +155,9 @@ class ReactContainer extends React.Component{
                 //console.log(user);
                 this.setState({ user: user });
 
+
+                //Active Container to switch away from sign in
+                this.state.activeContainer()
                 this._hideAllContainers();
                 jQuery("#home-panel")
                     .attr("class", "div-visible");
