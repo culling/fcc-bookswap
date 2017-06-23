@@ -15,7 +15,9 @@ class HeaderContainer extends React.Component{
     }
 
     componentWillMount(){
-
+        jQuery( document ).ready(function(){
+            jQuery(".button-collapse").sideNav();
+        })
     }
 
     _hideAllContainers(){
@@ -76,20 +78,64 @@ class HeaderContainer extends React.Component{
         
     }
 
+    _tradesClicked(){
+        console.log("Trades Clicked");
+
+        this._hideAllContainers();
+        jQuery("#allLibrary-container")
+            .add("#myLibrary-container")
+            .attr("class", "div-hidden");
+
+
+        jQuery("#books-container")
+            .add("#trades-container")
+            .attr("class", "div-visible");
+        
+    }
+
+
     render(){
         return(
             <div>
-                <div className="row">
-                    <button className="btn" onClick={ this._homeClicked.bind(this)}>Home</button>
-                    <button className="btn" onClick={ this._signUpClicked.bind(this)}>Sign Up</button>
-                    <button className="btn" onClick={ this._loginClicked.bind(this)}>Log In</button>
-                    <button className="btn" onClick={ this.props.logOutClick() }>Log Out</button>
-                    <button className="btn" onClick={ this._profileClicked.bind(this)}>Profile</button>
-                    <button className="btn" onClick={ this._booksClicked.bind(this) }>Books</button>
-                    
-                    <MessagesContainer user={this.props.user} />
-                </div>
-                
+                <nav>
+                    <div className="nav-wrapper" >
+                        <a href="#" data-activates="mobile-menu" className="button-collapse"><i className="material-icons">menu</i></a>
+                        <ul className="right hide-on-med-and-down">
+                            <li  onClick={ this._homeClicked.bind(this)}><a >Home</a></li>
+                            <li  onClick={ this._signUpClicked.bind(this)}><a >Sign Up</a></li>
+                            <li  onClick={ this._loginClicked.bind(this)}><a >Log In</a></li>
+                            {(this.props.user.type=="user") &&
+                                <li  onClick={ this.props.logOutClick() }><a >Log Out</a></li>
+                            }
+                            {(this.props.user.type=="user") && 
+                                <li  onClick={ this._profileClicked.bind(this)}><a >Profile</a></li>
+                            }
+                            <li  onClick={ this._booksClicked.bind(this) }><a >Books </a></li>
+                            {(this.props.user.type=="user") &&
+                                <li  onClick={ this._tradesClicked.bind(this) }><a >Trades </a></li>
+                            }
+                        </ul>
+                        <ul className="side-nav" id="mobile-menu">
+                            <li  onClick={ this._homeClicked.bind(this)}><a >Home</a></li>
+                            <li  onClick={ this._signUpClicked.bind(this)}><a >Sign Up</a></li>
+                            <li  onClick={ this._loginClicked.bind(this)}><a >Log In</a></li>
+                            {(this.props.user.type=="user") &&
+                                <li  onClick={ this.props.logOutClick() }><a >Log Out</a></li>
+                            }
+                            {(this.props.user.type=="user") &&
+                                <li  onClick={ this._profileClicked.bind(this)}><a >Profile</a></li>
+                            }
+                            <li  onClick={ this._booksClicked.bind(this) }><a >Books </a></li>
+                            {(this.props.user.type=="user") &&
+                                <li  onClick={ this._tradesClicked.bind(this) }><a >Trades </a></li>
+                            }
+                        </ul>                    
+                        
+                        
+                    </div>
+                </nav>
+                <MessagesContainer user={this.props.user} />
+
             </div>
         )
     }

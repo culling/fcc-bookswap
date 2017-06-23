@@ -59,7 +59,7 @@ class TradeRequestCard extends React.Component{
     //End _sendUserMessage
 
 
-
+    /*
     _promptForTradeRequestYesClick(book){
         console.log("promptForTradeRequestYesClick");
 
@@ -78,22 +78,21 @@ class TradeRequestCard extends React.Component{
             contentType: 'application/json', // for request
             dataType: "text",
             success: function(){
-                _this._sendUserMessage( userMessageToBookOwner );
                 jQuery("#tradeRequest-card")
                     .attr("class", "div-hidden");
+                _this._sendUserMessage( userMessageToBookOwner );
             }
         });
-
-
+      
 
 
     }
+  */
 
     _promptForTradeRequestNoClick(book){
         console.log("promptForTradeRequestNoClick");
         jQuery("#tradeRequest-card")
             .attr("class", "div-hidden");
-
     }
     
 
@@ -115,7 +114,7 @@ class TradeRequestCard extends React.Component{
                             {this.state.tradeRequestBook.authors.map((author, i) =>{return <li key={i} >{author}</li>} ) }
                         </div>
                         <div className="card-action">
-                            <a href="#" onClick={() => this._promptForTradeRequestYesClick(this.state.tradeRequestBook)}> Yes </a>
+                            <a href="#" onClick={this.props.promptForTradeRequestYesClick() }> Yes </a>
                             <a href="#" onClick={() => this._promptForTradeRequestNoClick(this.state.tradeRequestBook)} > No  </a>
                         </div>                        
                     </div>

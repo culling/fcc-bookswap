@@ -16,8 +16,7 @@ class MessagesContainer extends React.Component{
 
     render(){
         return(
-            <div>
-                Welcome User {this.props.user.username}
+            <div id="messages-container">
                 {(this.props.user.messages && (this.props.user.messages.length > 0)) && 
                     <ul className="collection">
                         {this.props.user.messages.map((message, i) =>{

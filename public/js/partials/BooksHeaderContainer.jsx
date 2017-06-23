@@ -43,16 +43,18 @@ class BooksHeaderContainer extends React.Component{
 
     render(){
         return(
+            <nav>
                 <div className="row">
                     {(this.props.user && (this.props.user.type==="user")) &&
-                    <div id="user-library-buttons"> 
-                        <button className="btn" onClick={this._myLibraryClicked.bind(this)}>My Library</button>
-                        <button className="btn" onClick={this._allLibraryClicked.bind(this)}>Whole Library</button>
-                        <button className="btn" onClick={this._tradesClicked.bind(this)}>Trades</button>
-                    </div>
+                    <ul id="user-library-buttons"> 
+                        <li><button className="btn" onClick={this._myLibraryClicked.bind(this)}>My Library</button></li>
+                        <li><button className="btn" onClick={this._allLibraryClicked.bind(this)}>Whole Library</button></li>
+                        <li><button className="btn" onClick={this._tradesClicked.bind(this)}>Trades</button></li>
+                    </ul>
                     }
     
                 </div>
+            </nav>
         )
     }
 }

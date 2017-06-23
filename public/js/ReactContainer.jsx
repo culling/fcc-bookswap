@@ -38,7 +38,7 @@ class ReactContainer extends React.Component{
         this._signupForm        = this._signupForm.bind(this);
         this._logOutClick       = this._logOutClick.bind(this);
         this._updateProfileClick = this._updateProfileClick.bind(this);
-
+        this._hideAllContainers = this._hideAllContainers.bind(this);
     };
 
     componentWillMount(){
@@ -71,7 +71,14 @@ class ReactContainer extends React.Component{
             url: "api/users",
             data: JSON.stringify(formDataObject ),
             success: function(){
-
+                jQuery("#messages-container").append(
+                    `<ul id="signup-message" class="collection">
+                        <li class="collection-item">Signup Complete - Login with your username and password</li>
+                    </ul>`
+                )
+                _this._hideAllContainers();
+                jQuery("#login-container")
+                    .attr("class", "div-visible");
             },
             dataType: "text",
             contentType : "application/json"
@@ -89,6 +96,7 @@ class ReactContainer extends React.Component{
             url: "/login",
             data: JSON.stringify(formDataObject),
             success: function(){
+                jQuery("#signup-message").remove() ;
                 _this._getUser();
             },
             statusCode:{
@@ -152,9 +160,7 @@ class ReactContainer extends React.Component{
             method: 'GET',
             url:"/api/user",
             success: (user)=>{
-                //console.log("Called - GetUser");
-                //console.log("User");
-                //console.log(user);
+
                 this.setState({ user: user });
 
 

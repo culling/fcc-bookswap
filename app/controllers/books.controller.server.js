@@ -11,7 +11,7 @@ exports.lookup = function(title, callback){
     //console.log(escape(title));
     var hostname = "www.googleapis.com"
     var path = "/books/v1/volumes?q=intitle:" + escape(title);
-    console.log(path);
+    //console.log(path);
     https.get({hostname: hostname, path: path},
     function(response){
         var responseBody="";
@@ -48,7 +48,7 @@ exports.create  = function(rawBookObject){
             ISBN_10: ISBN_10.identifier
         }
         var newBook = new BookModel(book);
-        console.log(newBook);
+        //console.log(newBook);
         newBook.save();
     }
 };
@@ -56,7 +56,7 @@ exports.create  = function(rawBookObject){
 
 exports.lookupAll = function(done){
     console.log("Book - lookupAll Called");
-    console.log("");
+
 
     mongoExport.books.findAll(function(foundBooks){
         //console.log(foundBooks);
@@ -67,7 +67,7 @@ exports.lookupAll = function(done){
 
 exports.update = function(book, done){
     console.log("Book - Update Called");
-    console.log(book);
+    //console.log(book);
 
     mongoExport.books.BookModel.update({_id: book._id}, 
         book,

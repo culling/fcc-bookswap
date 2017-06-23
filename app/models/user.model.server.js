@@ -77,7 +77,7 @@ exports.UserModel   = UserModel;
 
 
 exports.updatePassword  = function(user, done){
-    console.log("Update Called");
+    console.log("updatePassword called");
     UserModel.findOne({ username: user.username }, function (err, doc){
         doc.password = user.password;
         doc.save();
@@ -86,7 +86,7 @@ exports.updatePassword  = function(user, done){
 
 
 exports.findByUsername = function(username, cb){
-    UserModel.find({"username": username}, function(err, foundUsers){
+    UserModel.find({"username": username},{"password": 0, "salt":0}, function(err, foundUsers){
         if(err){
             console.error(err);
         }
