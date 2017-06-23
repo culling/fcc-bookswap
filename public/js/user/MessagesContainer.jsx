@@ -18,11 +18,11 @@ class MessagesContainer extends React.Component{
         return(
             <div>
                 Welcome User {this.props.user.username}
-                {this.props.user.messages && 
+                {(this.props.user.messages && (this.props.user.messages.length > 0)) && 
                     <ul className="collection">
                         {this.props.user.messages.map((message, i) =>{
                             return (
-                                <MessagesCollectionItem key={i} message={message} />
+                                <MessagesCollectionItem key={i} message={message} user={this.props.user} />
                             )
                         })
                         }

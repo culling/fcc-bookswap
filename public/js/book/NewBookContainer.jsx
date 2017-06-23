@@ -15,8 +15,14 @@ class NewBookContainer extends React.Component{
 
         //Binding to this for functions
         this._addNewBook        = this._addNewBook.bind(this);
+        this._sendUserMessage   = this._sendUserMessage.bind(this);
     };
 
+    componentWillReceiveProps(newProps){
+        if (this.props.user != newProps.user){
+            this.setState({user: newProps.user});
+        }
+    }
     
     _sendUserMessage(newStateDiff) {
         this.sendUserMessageToDB(newStateDiff);
@@ -30,11 +36,6 @@ class NewBookContainer extends React.Component{
     }
 
     sendUserMessageToDB(newStateDiff) {
-        newStateDiff = {user: 
-            {username: "jim"},
-             message: "Test Message from NewBookContainer" 
-        };
-
         jQuery.ajax({
             type: "POST",
             url: "/api/users/messages",
@@ -71,10 +72,6 @@ class NewBookContainer extends React.Component{
                     });
                     console.log(filteredBooksArray);
                     this.setState({"foundBooks": filteredBooksArray});
-
-
-
-                    this._sendUserMessage();
                 }
            }
         });
@@ -88,7 +85,11 @@ class NewBookContainer extends React.Component{
 
         console.log("Find Book Clicked");
         //console.log(JSON.stringify(newBook) );
-        
+        console.log(newBook);
+        var userMessage = {user:  this.props.user,
+            message: "New Book added - "+ newBook.volumeInfo.title
+        };
+
         jQuery.ajax({
             method: 'POST',
             url:("/api/book"),
@@ -99,6 +100,7 @@ class NewBookContainer extends React.Component{
                 jQuery("#title")
                     .val("");
                 _this.setState({foundBooks: []});
+                _this._sendUserMessage(userMessage);
             }
         });
         

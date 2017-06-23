@@ -47,7 +47,7 @@ class BooksContainer extends React.Component{
                 {this.props.user &&
                 <div id="myLibrary-container" className="div-hidden" >
                     <LibraryContainer key="myLibrary"   filterUser={this.props.user} user={this.props.user}  id="myLibrary"  />
-                    <NewBookContainer />
+                    <NewBookContainer user={this.props.user} />
                 </div>
                 }
 

@@ -85,6 +85,32 @@ router.post("/users/messages", function(req, res){
             }
         }) 
     } );
+});
+
+
+router.delete("/users/messages", function(req, res){
+    var userMessage = req.body;
+    console.log("/api/users/messages Hit");
+    var user = userMessage.user;
+    var message = userMessage.message;
+    mongoExport.users.findByUsername(user.username, function(foundUser){
+        console.log(foundUser);
+        console.log(message);
+        var newUserObject = foundUser[0];
+        newUserObject.messages = newUserObject.messages.filter(currentMessage => {
+            return (currentMessage != message)
+        });
+        mongoExport.users.UserModel.update({"username": newUserObject.username},
+         newUserObject,
+            function(err, updatedUser){
+            if (err){
+                return next (err);
+            } else {
+                res.write("finished");
+                res.end();
+            }
+        }) 
+    } );
     
 });
 
