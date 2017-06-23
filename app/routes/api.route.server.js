@@ -64,6 +64,29 @@ router.put("/users", function(req, res){
     );
 });
 
+router.post("/users/messages", function(req, res){
+    var userMessage = req.body;
+    console.log("/api/users/messages Hit");
+    var user = userMessage.user;
+    var message = userMessage.message;
+    mongoExport.users.findByUsername(user.username, function(foundUser){
+        console.log(foundUser);
+        
+        var newUserObject = foundUser[0];
+        newUserObject.messages.push(message );
+        mongoExport.users.UserModel.update({"username": newUserObject.username},
+         newUserObject,
+            function(err, updatedUser){
+            if (err){
+                return next (err);
+            } else {
+                res.write("finished");
+                res.end();
+            }
+        }) 
+    } );
+    
+});
 
 //Send the current user or the IP Address if none logged in
 router.get("/user", function(req, res){
@@ -85,7 +108,7 @@ router.get("/user", function(req, res){
 
 //Books
 router.get("/book", function(req, res){
-    console.log("Query Called : " );
+    console.log("/api/book hit" );
     //console.log( req.query);
 
     if(req.query.title){
@@ -132,7 +155,7 @@ router.get("/library", function(req, res){
 });
 
 router.post("/trade", function(req, res){
-    console.log("API/trade hit")
+    console.log("/API/trade hit")
 
     var book = req.body;
     //var userRequestingTrade = req.user;
