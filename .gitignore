@@ -64,3 +64,4 @@ data/
 # Secrets
 # =============================
 config/secrets/
+.env
