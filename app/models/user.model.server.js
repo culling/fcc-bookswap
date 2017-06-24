@@ -1,24 +1,14 @@
 "use strict";
 
 var config  = require("./../../config/config");
-var secrets = require("./../../config/secrets/secrets");
+
 // mongo
 var mongo               = require("mongodb").MongoClient;
 var mongoPort           = config.mongoPort;
 var mongoDatabase       = config.mongoDatabase;
-var mongoServer         = config.mongoServer;
 //var collectionName      = "users";
+var mongoUrl            = process.env.MONGODB_URI //|| `mongodb://localhost:${mongoPort}/${mongoDatabase}`;
 
-if(config.mongoUser){
-var mongoUser = config.mongoUser;
-var mongoUserPassword = secrets[mongoUser].password;
-//console.log(mongoUser);
-//console.log(mongoUserPassword);
-var mongoUrl            =  `mongodb://${mongoUser}:${mongoUserPassword}@${mongoServer}:${mongoPort}/${mongoDatabase}`;
-
-}else{
-var mongoUrl            =  `mongodb://${mongoServer}:${mongoPort}/${mongoDatabase}`;
-}
 
 //Crypto 
 var crypto      = require('crypto');

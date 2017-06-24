@@ -1,21 +1,13 @@
 "use strict";
 
 var config  = require("./../../config/config");
-var secrets = require("./../../config/secrets/secrets");
+
 // mongo
 var mongo               = require("mongodb").MongoClient;
 var mongoPort           = config.mongoPort;
 var mongoDatabase       = config.mongoDatabase;
-var mongoServer         = config.mongoServer;
 //var collectionName      = "users";
-
-if(config.mongoUser){
-	var mongoUser = config.mongoUser;
-	var mongoUserPassword = secrets[mongoUser].password;
-	var mongoUrl            =  `mongodb://${mongoUser}:${mongoUserPassword}@${mongoServer}:${mongoPort}/${mongoDatabase}`;
-}else{
-	var mongoUrl            =  `mongodb://${mongoServer}:${mongoPort}/${mongoDatabase}`;
-}
+var mongoUrl            = process.env.MONGODB_URI //|| `mongodb://localhost:${mongoPort}/${mongoDatabase}`;
 
 // Mongoose
 //https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs/mongoose
