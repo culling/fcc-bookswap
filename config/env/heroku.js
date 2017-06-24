@@ -1,5 +1,5 @@
 module.exports={
-    port:               5000,
+    port:               process.env.PORT || 80,
     mongoPort:          37882,
     mongoUser:          "dbuser",
     mongoServer:        "ds137882.mlab.com",
