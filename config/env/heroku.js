@@ -1,5 +1,5 @@
 module.exports={
-    port:               80,
+    port:               5000,
     mongoPort:          37882,
     mongoUser:          "dbuser",
     mongoServer:        "ds137882.mlab.com",
