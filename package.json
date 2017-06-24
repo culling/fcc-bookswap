@@ -13,7 +13,9 @@
     "c9-run-mongo": "./mongod",
     "vsc-config-mongo": "mkdir data && echo 'mongod --bind_ip=$IP --dbpath=data --nojournal --rest \"$@\"'",
     "vsc-run-mongo": "mongod --port 27017 --dbpath=./data",
-    "vsc-mongo": "npm run vsc-run-mongo"
+    "vsc-mongo": "npm run vsc-run-mongo",
+    "start": "node server.js",
+    "postinstall": "bower install"
   },
   "author": "Gene Culling",
   "license": "ISC",
